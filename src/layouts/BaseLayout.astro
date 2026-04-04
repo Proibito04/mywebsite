@@ -1,0 +1,46 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Sidebar from '../components/Sidebar.astro';
+import '../styles/global.css';
+import '@fontsource/lexend';
+import '@fontsource/fira-code';
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title} | Edoardo Balzano</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <Sidebar />
+    <main class="ml-16 group-data-[collapsed=false]:ml-64 transition-all duration-300 p-8 max-w-5xl mx-auto">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<script>
+  // Simple listener to update main margin based on sidebar state
+  function updateMargin() {
+    const sidebar = document.getElementById('sidebar');
+    const main = document.querySelector('main');
+    if (sidebar && main) {
+      if (sidebar.dataset.collapsed === 'true') {
+        main.classList.remove('ml-64');
+        main.classList.add('ml-16');
+      } else {
+        main.classList.remove('ml-16');
+        main.classList.add('ml-64');
+      }
+    }
+  }
+
+  const observer = new MutationObserver(updateMargin);
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) observer.observe(sidebar, { attributes: true, attributeFilter: ['data-collapsed'] });
+  updateMargin();
+</script>
