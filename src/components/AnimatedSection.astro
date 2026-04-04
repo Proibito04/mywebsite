@@ -1,0 +1,18 @@
+---
+---
+<div class="animate-on-scroll opacity-0 translate-y-8">
+  <slot />
+</div>
+
+<script>
+  import { inView, animate } from "motion";
+
+  function setupAnimations() {
+    inView(".animate-on-scroll", ({ target }) => {
+      animate(target, { opacity: 1, y: 0 }, { duration: 0.6, easing: "ease-out" });
+    });
+  }
+
+  setupAnimations();
+  document.addEventListener('astro:after-swap', setupAnimations);
+</script>

@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AnimatedSection from '../components/AnimatedSection.astro';
+import { getCollection } from 'astro:content';
+
+const latestNotes = (await getCollection('notes')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+const latestWriteups = (await getCollection('writeups')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+---
+
+<BaseLayout title="Home">
+  <AnimatedSection>
+    <section class="mb-16">
+      <h1 class="text-5xl font-bold text-sage-green mb-4">Edoardo Balzano</h1>
+      <p class="text-xl text-off-white/80 max-w-2xl">
+        Cybersecurity Student | HTB Enthusiast | Learning to build and break things securely.
+      </p>
+    </section>
+  </AnimatedSection>
+
+  <div class="grid md:grid-cols-2 gap-12">
+    <AnimatedSection>
+      <section>
+        <h2 class="text-2xl font-bold mb-6 border-b border-forest-muted pb-2">Latest Notes</h2>
+        <div class="space-y-4">
+          {latestNotes.map(note => (
+            <a href={`/notes/${note.slug}`} class="block p-4 bg-forest-dark border border-forest-muted rounded-lg hover:border-sage-green transition-colors">
+              <h3 class="font-bold text-sage-green">{note.data.title}</h3>
+              <p class="text-sm text-off-white/60">{note.data.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    </AnimatedSection>
+
+    <AnimatedSection>
+      <section>
+        <h2 class="text-2xl font-bold mb-6 border-b border-forest-muted pb-2">Latest Writeups</h2>
+        <div class="space-y-4">
+          {latestWriteups.map(writeup => (
+            <a href={`/writeups/${writeup.slug}`} class="block p-4 bg-forest-dark border border-forest-muted rounded-lg hover:border-sage-green transition-colors">
+              <h3 class="font-bold text-sage-green">{writeup.data.title}</h3>
+              <p class="text-sm text-off-white/60">{writeup.data.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    </AnimatedSection>
+  </div>
+</BaseLayout>
