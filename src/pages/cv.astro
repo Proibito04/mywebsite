@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AnimatedSection from '../components/AnimatedSection.astro';
+---
+
+<BaseLayout title="CV / About">
+  <AnimatedSection>
+    <h1 class="text-4xl font-bold text-sage-green mb-8">Curriculum Vitae</h1>
+    <div class="prose prose-invert prose-headings:text-sage-green max-w-none">
+      <h2>Professional Summary</h2>
+      <p>Passionate cybersecurity student focusing on penetration testing and secure software development.</p>
+      
+      <h2>Education</h2>
+      <ul>
+        <li><strong>Cybersecurity Degree</strong> | 2024 - Present</li>
+      </ul>
+
+      <h2>Skills</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 not-prose">
+        {['Network Security', 'Penetration Testing', 'Linux', 'Astro.js', 'Python', 'Docker'].map(skill => (
+          <div class="p-2 border border-forest-muted rounded text-center text-sm">{skill}</div>
+        ))}
+      </div>
+    </div>
+  </AnimatedSection>
+</BaseLayout>
