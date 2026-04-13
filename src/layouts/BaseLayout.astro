@@ -18,6 +18,12 @@ const { title } = Astro.props;
       // Prevent FOUC and margin shift by setting initial state immediately
       const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
       document.documentElement.dataset.sidebarCollapsed = isCollapsed;
+      
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
     </script>
   </head>
   <body>

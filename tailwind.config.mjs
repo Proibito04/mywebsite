@@ -1,14 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        'forest-deep': '#0a1a12',
-        'forest-dark': '#0f241a',
-        'forest-muted': '#1a3d2e',
-        'sage-green': '#86a693',
-        'off-white': '#f5f5f5',
+        'forest-deep': 'rgb(var(--forest-deep) / <alpha-value>)',
+        'forest-dark': 'rgb(var(--forest-dark) / <alpha-value>)',
+        'forest-muted': 'rgb(var(--forest-muted) / <alpha-value>)',
+        'sage-green': 'rgb(var(--sage-green) / <alpha-value>)',
+        'off-white': 'rgb(var(--off-white) / <alpha-value>)',
       },
       fontFamily: {
         sans: ['Lexend', 'sans-serif'],
