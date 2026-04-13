@@ -1,12 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import AnimatedSection from "../components/AnimatedSection.astro";
-import { getCollection } from "astro:content";
+import { getCollection, type InferEntrySchema } from "astro:content";
 
 const latestNotes = (await getCollection("notes"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
-const latestWriteups = (await getCollection("writeups"))
+const latestWriteups= (await getCollection("writeups"))
   .sort((a, b) => b.data.created.valueOf() - a.data.created.valueOf())
   .slice(0, 3);
 ---
@@ -56,9 +56,9 @@ const latestWriteups = (await getCollection("writeups"))
                 href={`/writeups/${writeup.id}`}
                 class="block p-4 bg-forest-dark border border-forest-muted rounded-lg hover:border-sage-green transition-colors"
               >
-                <h3 class="font-bold text-sage-green">{writeup.data.title}</h3>
+                <h3 class="font-bold text-sage-green">{writeup.data.name}</h3>
                 <p class="text-sm text-off-white/60">
-                  {writeup.data.description}
+                  {writeup.data.name}
                 </p>
               </a>
             ))

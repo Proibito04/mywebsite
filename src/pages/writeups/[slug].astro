@@ -217,7 +217,7 @@ const modifiedDate = entry.data.modified
             if (node.type === "code") {
               return (
                 <ASTCodeBlock
-                  lang={node.lang}
+                  lang={node.lang ?? ""}
                   code={node.content}
                 />
               );
