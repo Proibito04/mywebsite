@@ -2,6 +2,7 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
+
 const notes = defineCollection({
   loader: glob({ base: './src/content/notes', pattern: '**/*.md', }),
   schema: z.object({
@@ -13,14 +14,20 @@ const notes = defineCollection({
 });
 
 const writeups = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/writeups' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/writeups' }),
   schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    pubDate: z.date(),
-    machine: z.string().optional(),
-    difficulty: z.string().optional(),
-    tags: z.array(z.string()).default([]),
+    name: z.string(),
+    starting_date: z.date(),
+    modified: z.date(),
+    machine_link: z.string().optional().nullable(),
+    difficulty: z.string().optional().nullable().transform(v => v ?? "easy"),
+    tags: z.array(z.string()).nullable().transform(v => v ?? []),
+    private: z.boolean().default(false),
+    created: z.date().transform(v => {
+      console.log(v);
+      
+      return v
+    })
   }),
 });
 

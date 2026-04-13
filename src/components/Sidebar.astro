@@ -5,8 +5,6 @@ import Terminal from "lucide-astro/Terminal";
 import User from "lucide-astro/User";
 import ChevronLeft from "lucide-astro/ChevronLeft";
 import ChevronRight from "lucide-astro/ChevronRight";
-import Sun from "lucide-astro/Sun";
-import Moon from "lucide-astro/Moon";
 
 const navItems = [
   { href: '/', icon: Home, label: 'Home' },
@@ -37,12 +35,6 @@ const navItems = [
         </a>
       ))}
     </nav>
-    <div class="mt-auto pt-4 border-t border-forest-muted flex items-center group-data-[collapsed=true]:justify-center">
-      <button id="theme-toggle" class="flex items-center gap-4 p-2 w-full hover:bg-forest-muted rounded-lg text-off-white transition-all duration-300 group-data-[collapsed=true]:justify-center group-data-[collapsed=true]:gap-0 group-data-[collapsed=true]:w-10 group-data-[collapsed=true]:h-10 group-data-[collapsed=true]:p-0">
-        <Sun class="w-6 h-6 shrink-0 text-sage-green hidden dark:block" />
-        <Moon class="w-6 h-6 shrink-0 text-sage-green block dark:hidden" />
-        <span class="group-data-[collapsed=true]:hidden whitespace-nowrap font-medium text-sm">Toggle Theme</span>
-      </button>
     </div>
   </div>
 </aside>
@@ -73,21 +65,7 @@ const navItems = [
     });
   }
 
-  function setupTheme() {
-    const themeToggle = document.getElementById('theme-toggle');
-    if (!themeToggle) return;
-
-    const newThemeToggle = themeToggle.cloneNode(true);
-    themeToggle.parentNode?.replaceChild(newThemeToggle, themeToggle);
-
-    newThemeToggle.addEventListener('click', () => {
-      const isDark = document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
-  }
-
   document.addEventListener('astro:page-load', () => {
     setupSidebar();
-    setupTheme();
   });
 </script>

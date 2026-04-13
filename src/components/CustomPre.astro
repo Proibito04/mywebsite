@@ -1,0 +1,186 @@
+---
+const props = Astro.props;
+
+let rawHtml = await Astro.slots.render("default");
+
+let codePrefix = "";
+let codeSuffix = "";
+let innerHtml = rawHtml;
+
+// Shiki often outputs: <code ...>...</code>
+// We extract the wrapper so we can re-wrap the split parts
+const codeMatch = rawHtml.match(/^(<code[^>]*>)([\s\S]*)(<\/code>)$/i);
+if (codeMatch) {
+  codePrefix = codeMatch[1];
+  innerHtml = codeMatch[2];
+  codeSuffix = codeMatch[3];
+}
+
+const lines = innerHtml.split("\n");
+let separatorIndex = -1;
+
+for (let i = 0; i < lines.length; i++) {
+  // Strip HTML to check the raw text
+  const text = lines[i].replace(/<[^>]*>/g, "").trim();
+  // Match forms like "---", "{{{---}}}", "{{---}}", etc.
+  if (/^\{{0,3}-{2,}\}{0,3}$/.test(text)) {
+    separatorIndex = i;
+    break;
+  }
+}
+
+let inputHtml = innerHtml;
+let outputHtml = null;
+
+if (separatorIndex !== -1) {
+  // Input: Everything before the separator
+  inputHtml = lines.slice(0, separatorIndex).join("\n");
+  // Output: Everything after the separator (and we remove trailing empty lines if needed)
+  outputHtml = lines.slice(separatorIndex + 1).join("\n");
+}
+
+const finalInputHtml = codePrefix + inputHtml + codeSuffix;
+const finalOutputHtml = outputHtml
+  ? codePrefix + outputHtml + codeSuffix
+  : null;
+---
+
+<div
+  class="mockup-code not-prose border border-gray-400 relative my-8 text-sm group/mockup"
+>
+  <!-- "Copy to clipboard" Button -->
+  <button
+    class="copy-btn absolute top-3 right-4 hover:text-white transition-colors z-10 hidden sm:block p-1"
+    aria-label="Copy code"
+    title="Copy code"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <rect
+        width="14"
+        height="14"
+        x="8"
+        y="8"
+        rx="2"
+        ry="2"
+      ></rect>
+      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+    </svg>
+  </button>
+
+  <!-- Input Section -->
+  <div class="px-2 sm:px-6 my-2 max-h-[600px] overflow-auto custom-scrollbar">
+    {
+      outputHtml ? (
+        <pre
+          data-prefix="$"
+          {...props}
+          class:list={[
+            props.class,
+            "m-0 p-0 block border-none shadow-none text-sm leading-relaxed",
+          ]}
+          set:html={finalInputHtml}
+        />
+      ) : (
+        <pre
+          data-prefix="$"
+          {...props}
+          class:list={[
+            props.class,
+            "m-0 p-0 block border-none shadow-none text-sm leading-relaxed",
+          ]}
+        >
+          <slot />
+        </pre>
+      )
+    }
+  </div>
+
+  <!-- Output Section -->
+  {
+    outputHtml && (
+      <details class="group/details mx-2 sm:mx-6 mb-4 mt-2 border border-gray-600 rounded-xl bg-black/20 open:bg-black/30 transition-colors ">
+        <summary class=" force-dark cursor-pointer px-4 py-2 font-mono text-xs font-semibold  select-none flex items-center justify-between hover:text-sage-green transition-colors rounded-xl group-open/details:rounded-b-none outline-none">
+          <span class="text-white">Output</span>
+          <svg
+            class="w-4 h-4 transition-transform group-open/details:rotate-180 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </summary>
+        <div
+          class="px-4 py-3 border-t border-forest-muted/50 overflow-auto resize-y custom-scrollbar min-h-[50px] max-h-[800px] "
+          style="min-height: 100px; height: 250px; "
+        >
+          <pre
+            class:list={[
+              props.class,
+              "m-0 p-0 block border-none shadow-none text-sm leading-relaxed no-prefix ",
+            ]}
+            set:html={finalOutputHtml}
+          />
+        </div>
+      </details>
+    )
+  }
+</div>
+
+<script>
+  // Script for the Copy Button functionality
+  document.querySelectorAll(".copy-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const container = btn.closest(".mockup-code");
+      if (!container) return;
+      // Selecting the first pre ensures we only copy the input part
+      const codeBlock = container.querySelector("pre");
+      if (!codeBlock) return;
+
+      const code = codeBlock.textContent;
+      if (code) {
+        await navigator.clipboard.writeText(code);
+        const originalHTML = btn.innerHTML;
+        // Switch to checkmark icon on success
+        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="text-sage-green" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+        setTimeout(() => {
+          btn.innerHTML = originalHTML; // Revert after 2 seconds
+        }, 2000);
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Elegant scrollbar matching the dark theme */
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(209, 213, 219, 0.1); /* Very subtle forest-muted */
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(6, 95, 70, 0.4); /* sage-green / 40 */
+  }
+</style>

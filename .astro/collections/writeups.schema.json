@@ -2,36 +2,67 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
-    "title": {
+    "name": {
       "type": "string"
     },
-    "description": {
-      "type": "string"
-    },
-    "pubDate": {
+    "starting_date": {
       "type": "string",
       "format": "date-time"
     },
-    "machine": {
-      "type": "string"
+    "modified": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "machine_link": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "difficulty": {
-      "type": "string"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "tags": {
-      "default": [],
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "private": {
+      "default": false,
+      "type": "boolean"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
     },
     "$schema": {
       "type": "string"
     }
   },
   "required": [
-    "title",
-    "description",
-    "pubDate"
+    "name",
+    "starting_date",
+    "modified",
+    "tags",
+    "created"
   ]
 }

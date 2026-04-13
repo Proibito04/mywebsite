@@ -1,39 +1,56 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import AnimatedSection from '../../components/AnimatedSection.astro';
-import { getCollection } from 'astro:content';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import AnimatedSection from "../../components/AnimatedSection.astro";
+import { getCollection } from "astro:content";
 
-const writeups = (await getCollection('writeups')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const writeups = (await getCollection("writeups")).sort(
+  (a, b) => b.data.created.valueOf() - a.data.created.valueOf(),
+);
 ---
 
 <BaseLayout title="HTB Writeups">
-  <AnimatedSection>
+
     <h1 class="text-4xl font-bold text-sage-green mb-8">HTB Writeups</h1>
     <div class="grid gap-6">
-      {writeups.map(writeup => (
-        <a href={`/writeups/${writeup.id}`} class="block p-6 bg-forest-dark border border-forest-muted rounded-lg hover:border-sage-green transition-colors">
-          <div class="flex justify-between items-start mb-2">
-            <div>
-              <h2 class="text-xl font-bold text-sage-green">{writeup.data.title}</h2>
-              {writeup.data.machine && (
-                <span class="text-xs text-off-white/40 uppercase tracking-widest font-mono">Machine: {writeup.data.machine}</span>
-              )}
+      {
+        writeups.map((writeup) => (
+          <a
+            href={`/writeups/${writeup.id}`}
+            class="block p-6 bg-forest-dark border border-forest-muted rounded-lg hover:border-sage-green transition-colors"
+          >
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h2 class="text-xl font-bold text-sage-green">
+                  {writeup.data.name}
+                </h2>
+                {writeup.data.name && (
+                  <span class="text-xs text-off-white/40 uppercase tracking-widest font-mono">
+                    Machine: {writeup.data.name}
+                  </span>
+                )}
+              </div>
+              <div class="flex flex-col items-end">
+                <span class="text-sm text-off-white/40">
+                  {new Date(writeup.data.created).toLocaleDateString()}
+                </span>
+                {writeup.data.difficulty && (
+                  <span class="text-xs font-bold uppercase tracking-wider text-sage-green/60 mt-1">
+                    {writeup.data.difficulty}
+                  </span>
+                )}
+              </div>
             </div>
-            <div class="flex flex-col items-end">
-              <span class="text-sm text-off-white/40">{new Date(writeup.data.pubDate).toLocaleDateString()}</span>
-              {writeup.data.difficulty && (
-                <span class="text-xs font-bold uppercase tracking-wider text-sage-green/60 mt-1">{writeup.data.difficulty}</span>
-              )}
+            <p class="text-off-white/60 mb-4">{writeup.data.name}</p>
+            <div class="flex gap-2">
+              {writeup.data.tags.map((tag) => (
+                <span class="text-xs px-2 py-1 bg-forest-muted rounded text-sage-green">
+                  {tag}
+                </span>
+              ))}
             </div>
-          </div>
-          <p class="text-off-white/60 mb-4">{writeup.data.description}</p>
-          <div class="flex gap-2">
-            {writeup.data.tags.map(tag => (
-              <span class="text-xs px-2 py-1 bg-forest-muted rounded text-sage-green">{tag}</span>
-            ))}
-          </div>
-        </a>
-      ))}
+          </a>
+        ))
+      }
     </div>
-  </AnimatedSection>
+
 </BaseLayout>

@@ -7,7 +7,7 @@ const latestNotes = (await getCollection("notes"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 const latestWriteups = (await getCollection("writeups"))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .sort((a, b) => b.data.created.valueOf() - a.data.created.valueOf())
   .slice(0, 3);
 ---
 

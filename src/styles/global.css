@@ -1,31 +1,92 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+  /* Mappiamo le variabili CSS alle utility di Tailwind */
+  --color-forest-deep: rgb(var(--forest-deep));
+  --color-forest-dark: rgb(var(--forest-dark));
+  --color-forest-muted: rgb(var(--forest-muted));
+  --color-sage-green: rgb(var(--sage-green));
+  --color-off-white: rgb(var(--off-white));
+
+  /* --font-sans: "Lexend", ui-sans-serif, system-ui, sans-serif; */
+  --font-mono: "Fira Code", ui-monospace, SFMono-Regular, monospace;
+
+
+}
+
+
+
 
 @layer base {
   :root {
-    --forest-deep: 255 255 255; /* Light background: pure white */
-    --forest-dark: 243 244 246; /* Card background: gray-100 */
-    --forest-muted: 209 213 219; /* Borders: gray-300 for higher contrast */
-    --sage-green: 6 95 70; /* Accent: emerald-800 */
-    --off-white: 0 0 0; /* Text: pure black */
+    --forest-deep: 255 255 255;
+    --forest-dark: 243 244 246;
+    --forest-muted: 209 213 219;
+    --sage-green: 6 95 70;
+    --off-white: 0 0 0;
     color-scheme: light;
   }
 
-  html.dark {
-    --forest-deep: 10 26 18;
-    --forest-dark: 15 36 26;
-    --forest-muted: 26 61 46;
-    --sage-green: 167 243 208; /* Pop emerald highlight */
-    --off-white: 255 255 255; /* Pure white text */
-    color-scheme: dark;
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --forest-deep: 10 26 18;
+      --forest-dark: 15 36 26;
+      --forest-muted: 26 61 46;
+      --sage-green: 167 243 208;
+      --off-white: 255 255 255;
+      color-scheme: dark;
+    }
+  }
+
+  /* Ora puoi usare @apply perché Tailwind conosce queste classi grazie al blocco @theme sopra */
+  body {
+    @apply bg-forest-deep text-off-white font-sans selection:bg-sage-green/30 transition-colors duration-300;
+  }
+
+  pre,
+  code {
+    @apply font-mono;
+  }
+
+  .astro-code,
+  .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: transparent !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+
+
+}
+
+@media (prefers-color-scheme: dark) {}
+
+.force-dark {
+  --forest-deep: 10 26 18;
+  --forest-dark: 15 36 26;
+  --forest-muted: 26 61 46;
+  --sage-green: 167 243 208;
+  --off-white: 255 255 255;
+  color-scheme: dark !important;
+}
+
+.mockup-code {
+  & pre {
+    &[data-prefix] {
+      &:before {
+        width: 0px !important;
+      }
+    }
   }
 }
 
-body {
-  @apply bg-forest-deep text-off-white font-sans selection:bg-sage-green/30 transition-colors duration-300;
-}
+.no-prefix {
+    &:before {
+      width: 0px !important;
+      content: none;
+    }
 
-pre, code {
-  @apply font-mono;
+  
 }
