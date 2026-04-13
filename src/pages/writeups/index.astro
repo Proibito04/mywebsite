@@ -11,7 +11,7 @@ const writeups = (await getCollection('writeups')).sort((a, b) => b.data.pubDate
     <h1 class="text-4xl font-bold text-sage-green mb-8">HTB Writeups</h1>
     <div class="grid gap-6">
       {writeups.map(writeup => (
-        <a href={`/writeups/${writeup.slug}`} class="block p-6 bg-forest-dark border border-forest-muted rounded-lg hover:border-sage-green transition-colors">
+        <a href={`/writeups/${writeup.id}`} class="block p-6 bg-forest-dark border border-forest-muted rounded-lg hover:border-sage-green transition-colors">
           <div class="flex justify-between items-start mb-2">
             <div>
               <h2 class="text-xl font-bold text-sage-green">{writeup.data.title}</h2>
