@@ -2,16 +2,20 @@
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TableOfContents from "../../components/TableOfContents.astro";
-import {
-  Calendar,
-  Tag,
-  Activity,
-  Link as LinkIcon,
-  Edit3,
-  Lock,
-} from "lucide-astro";
-import CustomPre from "@/components/CustomPre.astro";
+import Calendar from "lucide-astro/Calendar";
+import Tag from "lucide-astro/Tag";
+import Activity from "lucide-astro/Activity";
+import LinkIcon from "lucide-astro/Link";
+import Edit3 from "lucide-astro/Edit3";
+import Lock from "lucide-astro/Lock";
+import ASTCodeBlock from "@/components/ASTCodeBlock.astro";
 
+// 1. Core Unified Pipeline Requirements
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+// import { visit } from "unist-util-visit"; // For custom rehype manipulation
 export async function getStaticPaths() {
   const writeups = await getCollection("writeups");
   return writeups.map((entry) => ({
@@ -21,7 +25,52 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await render(entry);
+const { headings } = await render(entry);
+
+// 2. Define Custom Rehype Plugin (For "better control" over standard HTML elements)
+const myCustomRehypePlugin = () => {
+  return (tree: any) => {
+    // Example: visit(tree, 'element', (node) => { ... });
+  };
+};
+
+// 3. Setup Processors
+const parseProcessor = unified().use(remarkParse);
+
+const htmlProcessor = unified()
+  .use(remarkRehype, { allowDangerousHtml: true })
+  .use(myCustomRehypePlugin)
+  .use(rehypeStringify, { allowDangerousHtml: true });
+
+// 4. Parse raw markdown string into AST
+const mdast = parseProcessor.parse(entry.body);
+
+// 5. Traverse AST to build "Renderable Objects"
+const nodes = await Promise.all(
+  mdast.children.map(async (node) => {
+    if (node.type === "code") {
+      return {
+        type: "code",
+        lang: node.lang || "plaintext",
+        content: node.value,
+      };
+    }
+
+    const hastNode = await htmlProcessor.run({
+      // We wrap the single block in a "root" to satisfy unified
+      type: "root",
+      children: [node as any],
+    });
+
+    // We stringify the resulting hast (HTML AST)
+    const compiledHtml = String(htmlProcessor.stringify(hastNode));
+
+    return {
+      type: "html",
+      content: compiledHtml,
+    };
+  }),
+);
 
 // Determine badge color based on difficulty
 const diffColor =
@@ -158,13 +207,27 @@ const modifiedDate = entry.data.modified
       </div>
 
       <article
-        class="prose lg:prose-lg max-w-none
+        class="prose  max-w-none text-off-white
         prose-headings:text-sage-green prose-a:text-sage-green
-        prose-code:text-sage-green
         prose-img:rounded-2xl prose-img:shadow-lg
-        selection:bg-sage-green/30 px-2 sm:px-0"
+        selection:bg-sage-green/30 px-2 sm:px-0 dark:prose-invert"
       >
-        <Content components={{ pre: CustomPre }} />
+        {
+          nodes.map((node) => {
+            if (node.type === "code") {
+              return (
+                <ASTCodeBlock
+                  lang={node.lang}
+                  code={node.content}
+                />
+              );
+            }
+            if (node.type === "html") {
+              return <Fragment set:html={node.content} />;
+            }
+            return null;
+          })
+        }
       </article>
     </div>
 

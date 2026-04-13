@@ -46,7 +46,7 @@ const finalOutputHtml = outputHtml
 ---
 
 <div
-  class="mockup-code not-prose border border-gray-400 relative my-8 text-sm group/mockup"
+  class="mockup-code not-prose border border-forest-muted/50 relative my-8 text-sm group/mockup"
 >
   <!-- "Copy to clipboard" Button -->
   <button
@@ -108,7 +108,7 @@ const finalOutputHtml = outputHtml
   <!-- Output Section -->
   {
     outputHtml && (
-      <details class="group/details mx-2 sm:mx-6 mb-4 mt-2 border border-gray-600 rounded-xl bg-black/20 open:bg-black/30 transition-colors ">
+      <details class="group/details mx-2 sm:mx-6 mb-4 mt-2 border border-forest-muted/60 rounded-xl bg-black/20 open:bg-black/30 transition-colors ">
         <summary class=" force-dark cursor-pointer px-4 py-2 font-mono text-xs font-semibold  select-none flex items-center justify-between hover:text-sage-green transition-colors rounded-xl group-open/details:rounded-b-none outline-none">
           <span class="text-white">Output</span>
           <svg
@@ -177,7 +177,7 @@ const finalOutputHtml = outputHtml
     background: transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(209, 213, 219, 0.1); /* Very subtle forest-muted */
+    background: rgba(var(--forest-muted), 0.2); /* Subtle forest-muted */
     border-radius: 4px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {

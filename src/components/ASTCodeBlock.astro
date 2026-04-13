@@ -1,0 +1,157 @@
+---
+import CodeBlock from "./CodeBlock.astro";
+
+interface Props {
+  code: string;
+  lang: string;
+}
+
+const { code, lang } = Astro.props;
+
+const lines = code.split("\n");
+let separatorIndex = -1;
+
+for (let i = 0; i < lines.length; i++) {
+  const text = lines[i].trim();
+  // Match forms like "---", "{{{---}}}", "{{---}}", etc.
+  if (/^\{{0,3}-{2,}\}{0,3}$/.test(text)) {
+    separatorIndex = i;
+    break;
+  }
+}
+
+let inputCode = code;
+let outputCode = null;
+
+if (separatorIndex !== -1) {
+  // Input: Everything before the separator
+  inputCode = lines.slice(0, separatorIndex).join("\n");
+  // Output: Everything after the separator
+  outputCode = lines.slice(separatorIndex + 1).join("\n");
+}
+---
+
+<div
+  class="not-prose my-8 overflow-hidden rounded-2xl border border-forest-muted shadow-xl shadow-forest-deep/20 group/mockup bg-code"
+>
+  <!-- Header: Language & Copy Button -->
+  <div
+    class="flex items-center justify-between border-b border-forest-muted bg-forest-dark px-4 py-2"
+  >
+    <span
+      class="text-xs font-mono font-bold uppercase tracking-wider text-sage-green"
+    >
+      {lang}
+    </span>
+
+    <button
+      class="ast-copy-btn flex items-center gap-1.5 text-xs font-medium text-off-white/70 hover:text-white transition-colors"
+      aria-label="Copy code"
+      title="Copy code"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect
+          width="14"
+          height="14"
+          x="8"
+          y="8"
+          rx="2"
+          ry="2"
+        ></rect>
+        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+        ></path>
+      </svg>
+      <span>Copy</span>
+    </button>
+  </div>
+
+  <!-- Code Body (Input) -->
+  <div class="max-h-[600px] overflow-auto custom-scrollbar p-6 bg-transparent">
+    <CodeBlock
+      code={inputCode}
+      lang={lang}
+    />
+  </div>
+
+  <!-- Output Section -->
+  {
+    outputCode && (
+      <details class="group/details mx-2 sm:mx-6 mb-4 mt-2 border rounded-xl bg-forest-muted/40 transition-colors ">
+        <summary class=" force-dark cursor-pointer px-4 py-2 font-mono text-xs font-semibold select-none flex items-center justify-between hover:text-sage-green transition-colors rounded-xl group-open/details:rounded-b-none outline-none">
+          <span >Output</span>
+          <svg
+            class="w-4 h-4 transition-transform group-open/details:rotate-180 "
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </summary>
+        <div
+          class="px-4 py-3 border-t border-forest-muted/50 overflow-auto resize-y custom-scrollbar min-h-[50px] max-h-[800px]"
+          style="min-height: 100px; height: 250px;"
+        >
+          <CodeBlock
+            code={outputCode}
+            lang={lang}
+          />
+        </div>
+      </details>
+    )
+  }
+</div>
+
+<script>
+  document.querySelectorAll(".ast-copy-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const container = btn.closest(".group\\/mockup");
+      if (!container) return;
+      const codeBlock = container.querySelector("pre code");
+      if (!codeBlock) return;
+
+      const code = codeBlock.textContent;
+      if (code) {
+        await navigator.clipboard.writeText(code);
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="text-sage-green" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span class="text-sage-green">Copied!</span>`;
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+        }, 2000);
+      }
+    });
+  });
+</script>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(var(--forest-muted), 0.2);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(6, 95, 70, 0.4);
+  }
+</style>
