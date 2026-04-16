@@ -23,11 +23,7 @@ const writeups = defineCollection({
     difficulty: z.string().optional().nullable().transform(v => v ?? "easy"),
     tags: z.array(z.string()).nullable().transform(v => v ?? []),
     private: z.boolean().default(false),
-    created: z.date().transform(v => {
-      console.log(v);
-      
-      return v
-    })
+    created: z.date()
   }),
 });
 

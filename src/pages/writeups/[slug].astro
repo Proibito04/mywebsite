@@ -9,13 +9,10 @@ import LinkIcon from "lucide-astro/Link";
 import Edit3 from "lucide-astro/Edit3";
 import Lock from "lucide-astro/Lock";
 import ASTCodeBlock from "@/components/ASTCodeBlock.astro";
+import ImgWriteup from "@/components/ImgWriteup.astro"
 
-// 1. Core Unified Pipeline Requirements
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
-// import { visit } from "unist-util-visit"; // For custom rehype manipulation
+import { parseMarkdownToNodes } from "../../utils/markdown";
+
 export async function getStaticPaths() {
   const writeups = await getCollection("writeups");
   return writeups.map((entry) => ({
@@ -27,50 +24,8 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { headings } = await render(entry);
 
-// 2. Define Custom Rehype Plugin (For "better control" over standard HTML elements)
-const myCustomRehypePlugin = () => {
-  return (tree: any) => {
-    // Example: visit(tree, 'element', (node) => { ... });
-  };
-};
-
-// 3. Setup Processors
-const parseProcessor = unified().use(remarkParse);
-
-const htmlProcessor = unified()
-  .use(remarkRehype, { allowDangerousHtml: true })
-  .use(myCustomRehypePlugin)
-  .use(rehypeStringify, { allowDangerousHtml: true });
-
-// 4. Parse raw markdown string into AST
-const mdast = parseProcessor.parse(entry.body);
-
-// 5. Traverse AST to build "Renderable Objects"
-const nodes = await Promise.all(
-  mdast.children.map(async (node) => {
-    if (node.type === "code") {
-      return {
-        type: "code",
-        lang: node.lang || "plaintext",
-        content: node.value,
-      };
-    }
-
-    const hastNode = await htmlProcessor.run({
-      // We wrap the single block in a "root" to satisfy unified
-      type: "root",
-      children: [node as any],
-    });
-
-    // We stringify the resulting hast (HTML AST)
-    const compiledHtml = String(htmlProcessor.stringify(hastNode));
-
-    return {
-      type: "html",
-      content: compiledHtml,
-    };
-  }),
-);
+// Use the utility function to get the nodes
+const nodes = await parseMarkdownToNodes(entry.body ?? "");
 
 // Determine badge color based on difficulty
 const diffColor =
@@ -206,14 +161,14 @@ const modifiedDate = entry.data.modified
         </div>
       </div>
 
-      <article
-        class="prose  max-w-none text-off-white
+  <article
+        class="prose max-w-none text-off-white
         prose-headings:text-sage-green prose-a:text-sage-green
         prose-img:rounded-2xl prose-img:shadow-lg
         selection:bg-sage-green/30 px-2 sm:px-0 dark:prose-invert"
       >
         {
-          nodes.map((node) => {
+          nodes.map((node) => {            
             if (node.type === "code") {
               return (
                 <ASTCodeBlock
@@ -222,6 +177,11 @@ const modifiedDate = entry.data.modified
                 />
               );
             }
+
+            if (node.type == "obsidian-image"){
+              return <ImgWriteup filename={node.filename} nameWriteup={entry.data.name}/>
+            }
+
             if (node.type === "html") {
               return <Fragment set:html={node.content} />;
             }
