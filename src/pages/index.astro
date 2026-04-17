@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import AnimatedSection from "../components/AnimatedSection.astro";
-import { getCollection, type InferEntrySchema } from "astro:content";
+import { getCollection } from "astro:content";
 
 const latestNotes = (await getCollection("notes"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())

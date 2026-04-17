@@ -2,11 +2,18 @@
 import { ClientRouter } from "astro:transitions";
 import Sidebar from "@/components/theme/Sidebar.astro";
 import "../styles/global.css";
+// @ts-ignore
 import "@fontsource/fira-code";
 import "@fontsource-variable/inter/wght.css";
 import { Font } from "astro:assets";
+import { SEO } from "astro-seo";
 
-const { title } = Astro.props;
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Cybersecurity Student | HTB Enthusiast | Learning to build and break things securely." } = Astro.props;
 ---
 
 <html
@@ -21,7 +28,12 @@ const { title } = Astro.props;
       name="viewport"
       content="width=device-width"
     />
-    <title>{title} | Edoardo Balzano</title>
+    <SEO
+      title={title}
+      titleTemplate="%s | Edoardo Balzano"
+      titleDefault="Edoardo Balzano"
+      description={description}
+    />
     <ClientRouter />
     <script is:inline>
       // Prevent FOUC and margin shift by setting initial state immediately

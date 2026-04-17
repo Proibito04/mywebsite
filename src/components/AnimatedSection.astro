@@ -9,7 +9,7 @@
 
   function setupAnimations() {
     inView(".animate-on-scroll", ({ target }) => {
-      animate(target, { opacity: 1, y: 0 }, { duration: 0.6, easing: "ease-out" });
+      animate(target as any, { opacity: 1, y: 0 }, { duration: 0.6, ease: "easeOut" });
     });
   }
 

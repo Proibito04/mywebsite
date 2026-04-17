@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import AnimatedSection from "../../components/AnimatedSection.astro";
 import { getCollection } from "astro:content";
 
 const notes = (await getCollection("notes")).sort(

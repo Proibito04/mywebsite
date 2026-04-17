@@ -3,6 +3,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 import mdx from '@astrojs/mdx';
 
+import sitemap from '@astrojs/sitemap';
+
 export default defineConfig({
   output: 'static',
   fonts:[{
@@ -33,5 +35,5 @@ export default defineConfig({
         dark: 'github-dark',
       },
     }
-  })]
+  }), sitemap()]
 });

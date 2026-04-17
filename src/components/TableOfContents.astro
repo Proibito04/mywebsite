@@ -1,4 +1,10 @@
 ---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
 const { headings } = Astro.props;
 ---
 
@@ -18,7 +24,10 @@ const { headings } = Astro.props;
 <script>
   function setupToC() {
     const items = document.querySelectorAll('.toc-item a');
-    const sections = Array.from(items).map(a => document.getElementById(a.getAttribute('data-slug')));
+    const sections = Array.from(items)
+      .map(a => a.getAttribute('data-slug'))
+      .filter((slug): slug is string => slug !== null)
+      .map(slug => document.getElementById(slug));
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

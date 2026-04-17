@@ -1,29 +1,28 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '../components/TableOfContents.astro';
-import type { InferEntrySchema } from 'astro:content';
 import type { MarkdownHeading } from 'astro';
 
 interface Props {
-  frontmatter: InferEntrySchema<"writeups">;
+  frontmatter: any;
   headings?: MarkdownHeading[];
 }
 
 const { frontmatter, headings } = Astro.props;
 ---
 
-<BaseLayout title={frontmatter.name}>
+<BaseLayout title={frontmatter.name || frontmatter.title} description={frontmatter.description}>
   <div class="flex flex-col lg:flex-row gap-8">
     <article class="prose prose-invert prose-headings:text-sage-green prose-a:text-sage-green prose-code:text-off-white max-w-none flex-grow">
       <header class="mb-12 border-b border-forest-muted pb-8">
-        <h1 class="text-4xl font-bold mb-2">{frontmatter.name}</h1>
+        <h1 class="text-4xl font-bold mb-2">{frontmatter.name || frontmatter.title}</h1>
         <div class="text-off-white/60 flex gap-4 text-sm">
-          <span>{new Date(frontmatter.created).toLocaleDateString()}</span>
-          {frontmatter.name && <span>Machine: {frontmatter.name}</span>}
+          <span>{new Date(frontmatter.created || frontmatter.pubDate).toLocaleDateString()}</span>
+          {(frontmatter.name || frontmatter.title) && <span>Machine: {frontmatter.name || frontmatter.title}</span>}
         </div>
       </header>
       <slot />
     </article>
-    <TableOfContents headings={headings} />
+    <TableOfContents headings={headings ?? []} />
   </div>
 </BaseLayout>
