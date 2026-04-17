@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "sync-vault": "rm -rf ./src/content/writeups && cp -r /home/edoardo/Vault/HTB ./src/content/writeups",
-    "push-all": "bun run sync-vault && git commit -m 'chore: sync htb writeups' && git push"
+    "push-all": "bun run sync-vault && git commit -m 'chore: sync htb writeups' && git push",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
