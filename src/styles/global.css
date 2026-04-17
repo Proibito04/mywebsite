@@ -31,6 +31,10 @@
     background-color: rgb(var(--shiki-bg));
   }
 
+  * {
+    box-sizing: border-box;
+  }
+
   @media (prefers-color-scheme: dark) {
     :root {
       --forest-deep: 10 26 18;
