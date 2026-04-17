@@ -1,0 +1,66 @@
+---
+import Home from "lucide-astro/Home";
+import Notebook from "lucide-astro/Notebook";
+import Terminal from "lucide-astro/Terminal";
+import User from "lucide-astro/User";
+import Menu from "lucide-astro/Menu";
+
+const navItems = [
+  { href: "/", icon: Home, label: "Home" },
+  { href: "/notes", icon: Notebook, label: "Notes" },
+  { href: "/writeups", icon: Terminal, label: "Writeups" },
+  { href: "/cv", icon: User, label: "About/CV" },
+];
+---
+
+<div class="drawer lg:drawer-open">
+  <input
+    id="my-drawer-4"
+    type="checkbox"
+    class="drawer-toggle"
+  />
+  <div class="drawer-content">
+    <!-- Navbar -->
+    <nav class="navbar w-full absolute top-0 left-0 z-10">
+      <label
+        for="my-drawer-4"
+        aria-label="open sidebar"
+        class="btn btn-square btn-ghost ml-auto"
+      >
+        <Menu />
+      </label>
+    </nav>
+    <!-- Page content here -->
+    <div class=""><slot /></div>
+  </div>
+
+  <div class="drawer-side is-drawer-close:overflow-visible">
+    <label
+      for="my-drawer-4"
+      aria-label="close sidebar"
+      class="drawer-overlay"
+    ></label>
+    <div
+      class="flex min-h-full flex-col items-start bg-forest-dark is-drawer-close:w-14 is-drawer-open:w-64"
+    >
+      <!-- Sidebar content here -->
+      <ul class="menu w-full grow">
+        <!-- List item -->
+        {
+          navItems.map(({ href, icon: Icon, label }) => (
+            <li class="py-2">
+              <a
+                href={href}
+                class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip={label}
+              >
+                <Icon />
+                <span class="is-drawer-close:hidden">{label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</div>

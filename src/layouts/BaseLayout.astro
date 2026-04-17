@@ -1,6 +1,6 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import Sidebar from "../components/Sidebar.astro";
+import Sidebar from "@/components/theme/Sidebar.astro";
 import "../styles/global.css";
 import "@fontsource/lexend";
 import "@fontsource/fira-code";
@@ -28,11 +28,13 @@ const { title } = Astro.props;
     </script>
   </head>
   <body>
-    <Sidebar />
-    <main
+    <Sidebar>
+
+      <main
       class="group-data-[sidebar-collapsed=true]/layout:m-auto transition-all duration-300 p-8 max-w-7xl m-auto min-h-screen"
-    >
+      >
       <slot />
     </main>
+  </Sidebar>
   </body>
 </html>
