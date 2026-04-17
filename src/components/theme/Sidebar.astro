@@ -41,23 +41,23 @@ const navItems = [
       class="drawer-overlay"
     ></label>
     <div
-      class="flex min-h-full flex-col items-start bg-forest-dark is-drawer-close:w-14 is-drawer-open:w-64"
+      class="flex min-h-full flex-col items-center bg-forest-dark is-drawer-close:w-14 is-drawer-open:w-64"
     >
       <!-- Sidebar content here -->
-      <ul class="menu w-full grow">
+      <ul class="menu rounded-box">
         <!-- List item -->
         {
           navItems.map(({ href, icon: Icon, label }) => (
-            <li class="py-2">
-              <a
-                href={href}
-                class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip={label}
-              >
-                <Icon />
-                <span class="is-drawer-close:hidden">{label}</span>
-              </a>
-            </li>
+             <li class="py-2">
+               <a
+                 href={href}
+                  class="w-full h-auto is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                 data-tip={label}
+               >
+                 <Icon />
+                 <span class="is-drawer-close:hidden">{label}</span>
+               </a>
+             </li>
           ))
         }
       </ul>
