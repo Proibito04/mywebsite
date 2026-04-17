@@ -1,10 +1,15 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   output: 'static',
+  fonts:[{
+    provider: fontProviders.fontsource(),
+    name: "Source Sans Pro",
+    cssVariable: "--font-source",
+  }],
   markdown: {
     shikiConfig: {
       defaultColor: false,

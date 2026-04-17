@@ -9,7 +9,7 @@ import LinkIcon from "lucide-astro/Link";
 import Edit3 from "lucide-astro/Edit3";
 import Lock from "lucide-astro/Lock";
 import ASTCodeBlock from "@/components/ASTCodeBlock.astro";
-import ImgWriteup from "@/components/ImgWriteup.astro"
+import ImgWriteup from "@/components/ImgWriteup.astro";
 
 import { parseMarkdownToNodes } from "../../utils/markdown";
 
@@ -161,14 +161,14 @@ const modifiedDate = entry.data.modified
         </div>
       </div>
 
-  <article
-        class="prose max-w-none text-off-white
+      <article
+        class="prose-lg max-w-none text-off-white
         prose-headings:text-sage-green prose-a:text-sage-green
         prose-img:rounded-2xl prose-img:shadow-lg
         selection:bg-sage-green/30 px-2 sm:px-0 dark:prose-invert"
       >
         {
-          nodes.map((node) => {            
+          nodes.map((node) => {
             if (node.type === "code") {
               return (
                 <ASTCodeBlock
@@ -178,8 +178,13 @@ const modifiedDate = entry.data.modified
               );
             }
 
-            if (node.type == "obsidian-image"){
-              return <ImgWriteup filename={node.filename} nameWriteup={entry.data.name}/>
+            if (node.type == "obsidian-image") {
+              return (
+                <ImgWriteup
+                  filename={node.filename}
+                  nameWriteup={entry.data.name}
+                />
+              );
             }
 
             if (node.type === "html") {

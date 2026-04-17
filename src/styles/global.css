@@ -11,7 +11,7 @@
   --color-sage-green: rgb(var(--sage-green));
   --color-off-white: rgb(var(--off-white));
 
-  /* --font-sans: "Lexend", ui-sans-serif, system-ui, sans-serif; */
+  --font-sans: "Inter", sans-serif;
   --font-mono: "Fira Code", ui-monospace, SFMono-Regular, monospace;
 }
 

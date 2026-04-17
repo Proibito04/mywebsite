@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.5",
   "scripts": {
-    "predev": "rm -rf ./src/content/writeups && ln -s /home/edoardo/Vault/HTB/ ./src/content/writeups",    
+    "predev": "rm -rf ./src/content/writeups && ln -s /home/edoardo/Vault/HTB/ ./src/content/writeups",
     "dev": "astro dev",
     "build": "astro build",
     "sync-vault": "rm -rf ./src/content/writeups && cp -r /home/edoardo/Vault/HTB ./src/content/writeups",
@@ -15,8 +15,8 @@
     "@astrojs/mdx": "^5.0.3",
     "@astrojs/tailwind": "6.0.2",
     "@flowershow/remark-wiki-link": "^3.4.0",
+    "@fontsource-variable/inter": "^5.2.8",
     "@fontsource/fira-code": "^5.1.0",
-    "@fontsource/lexend": "^5.1.0",
     "@tailwindcss/vite": "^4.2.2",
     "@types/mdast": "^4.0.4",
     "astro": "6.1.3",
