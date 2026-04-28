@@ -2,7 +2,6 @@
 @plugin "daisyui";
 @plugin "@tailwindcss/typography";
 
-
 @theme {
   /* Mappiamo le variabili CSS alle utility di Tailwind */
   --color-forest-deep: rgb(var(--forest-deep));
@@ -11,11 +10,20 @@
   --color-sage-green: rgb(var(--sage-green));
   --color-off-white: rgb(var(--off-white));
 
-  --font-sans: "Inter", sans-serif;
   --font-mono: "Fira Code", ui-monospace, SFMono-Regular, monospace;
 }
 
+@theme inline {
+  --font-sans: var(--font-ttnormal);
+  --font-headers: var(--font-ttrational); 
+}
+
 @layer base {
+
+  h1, h2, h3, h4, h5{
+    font-family: var(--font-headers);
+  }
+
   :root {
     --forest-deep: 250 252 248;
     --forest-dark: 232 240 228;
@@ -47,7 +55,6 @@
       color-scheme: dark;
     }
 
-
     .astro-code,
     .astro-code span {
       color: var(--shiki-dark) !important;
@@ -57,7 +64,6 @@
       font-weight: var(--shiki-dark-font-weight) !important;
       text-decoration: var(--shiki-dark-text-decoration) !important;
     }
-
   }
 
   /* Ora puoi usare @apply perché Tailwind conosce queste classi grazie al blocco @theme sopra */
@@ -67,17 +73,14 @@
 
   pre,
   code {
-    @apply font-mono;
+    @apply font-mono text-sm;
   }
 
   .astro-code,
   .astro-code span {
     background-color: transparent !important;
   }
-
-
 }
-
 
 .force-dark {
   --forest-deep: 10 26 18;
@@ -103,6 +106,4 @@
     width: 0px !important;
     content: none;
   }
-
-
 }

@@ -7,11 +7,36 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   output: 'static',
-  fonts:[{
+  fonts: [{
     provider: fontProviders.fontsource(),
     name: "Source Sans Pro",
     cssVariable: "--font-source",
-  }],
+  },
+  {
+    provider: fontProviders.local(),
+    name: "TTnormal",
+    cssVariable: "--font-ttnormal",
+    options: {
+      variants: [{
+        src: ['./src/assets/fonts/TTNormsPro-Normal.ttf'],
+        weight: 'normal',
+        style: 'normal'
+      }]
+    }
+  },
+  {
+    provider: fontProviders.local(),
+    name: "TTrational",
+    cssVariable: "--font-ttrational",
+    options: {
+      variants: [{
+        src: ['./src/assets/fonts/TT-Rationalist-Medium.ttf'],
+        weight: 'medium',
+        style: 'normal'
+      }]
+    }
+  }
+  ],
   markdown: {
     shikiConfig: {
       defaultColor: false,

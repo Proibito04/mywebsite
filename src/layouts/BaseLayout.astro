@@ -3,8 +3,7 @@ import { ClientRouter } from "astro:transitions";
 import Sidebar from "@/components/theme/Sidebar.astro";
 import "../styles/global.css";
 // @ts-ignore
-import "@fontsource/fira-code";
-import "@fontsource-variable/inter/wght.css";
+import "@fontsource/fira-code"
 import { Font } from "astro:assets";
 import { SEO } from "astro-seo";
 
@@ -22,7 +21,8 @@ const { title, description = "Cybersecurity Student | HTB Enthusiast | Learning 
   data-sidebar-collapsed="false"
 >
   <head>
-    <Font cssVariable="--font-source" />
+    <Font cssVariable="--font-ttnormal" />
+    <Font cssVariable="--font-ttrational" />
     <meta charset="utf-8" />
     <meta
       name="viewport"
