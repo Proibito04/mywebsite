@@ -15,15 +15,10 @@
 
 @theme inline {
   --font-sans: var(--font-ttnormal);
-  --font-headers: var(--font-ttrational); 
+  --font-headers: var(--font-ttrational);
 }
 
 @layer base {
-
-  h1, h2, h3, h4, h5{
-    font-family: var(--font-headers);
-  }
-
   :root {
     --forest-deep: 250 252 248;
     --forest-dark: 232 240 228;
@@ -66,7 +61,6 @@
     }
   }
 
-  /* Ora puoi usare @apply perché Tailwind conosce queste classi grazie al blocco @theme sopra */
   body {
     @apply bg-forest-deep text-off-white font-sans selection:bg-sage-green/30 transition-colors duration-300;
   }
@@ -80,6 +74,19 @@
   .astro-code span {
     background-color: transparent !important;
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-headers);
+  @apply mb-3;
+}
+
+code{
+  overflow-wrap: anywhere;
 }
 
 .force-dark {

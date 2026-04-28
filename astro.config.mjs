@@ -1,17 +1,11 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-
 import mdx from '@astrojs/mdx';
-
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   output: 'static',
-  fonts: [{
-    provider: fontProviders.fontsource(),
-    name: "Source Sans Pro",
-    cssVariable: "--font-source",
-  },
+  fonts: [
   {
     provider: fontProviders.local(),
     name: "TTnormal",
