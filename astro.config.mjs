@@ -44,7 +44,7 @@ export default defineConfig({
     plugins: [tailwindcss()
     ]
   },
-
+  site: "https://edoardobalzano.com",
   integrations: [mdx({
     include: ['**/*.md', '**/*.mdx'],
     extendMarkdownConfig: true,
