@@ -1,54 +1,125 @@
 ---
-import { ClientRouter } from "astro:transitions";
-import Sidebar from "@/components/theme/Sidebar.astro";
 import "../styles/global.css";
-// @ts-ignore
-import "@fontsource/fira-code"
-import { Font } from "astro:assets";
-import { SEO } from "astro-seo";
+// @ts-ignore — font package CSS is resolved by Vite at build time.
+import "@fontsource/fira-code";
+import TopNav from "../components/TopNav.astro";
+import { profiles, socialLinks, type Locale } from "../data/profile";
 
 interface Props {
   title: string;
   description?: string;
+  locale?: Locale;
+  canonicalPath?: string;
+  alternatePath?: string;
+  pageClass?: string;
 }
 
-const { title, description = "Cybersecurity Student | HTB Enthusiast | Learning to build and break things securely." } = Astro.props;
+const {
+  title,
+  description = "Edoardo Balzano — infrastructure security portfolio.",
+  locale = "en",
+  canonicalPath = Astro.url.pathname,
+  alternatePath,
+  pageClass = "",
+} = Astro.props;
+
+const profile = profiles[locale];
+const canonicalUrl = new URL(canonicalPath, Astro.site);
+const alternateLocale: Locale = locale === "en" ? "it" : "en";
+const alternateUrl = alternatePath ? new URL(alternatePath, Astro.site) : undefined;
+const fullTitle = title === "Edoardo Balzano" ? title : `${title} | Edoardo Balzano`;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Edoardo Balzano",
+  url: new URL(locale === "it" ? "/it" : "/", Astro.site).toString(),
+  email: "mailto:edoardo@edoardobalzano.com",
+  sameAs: [socialLinks.github, socialLinks.linkedin, socialLinks.htb],
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "University of Turin",
+  },
+  knowsAbout: [
+    "Cybersecurity",
+    "Infrastructure security",
+    "Docker",
+    "Linux",
+    "Computer networking",
+  ],
+};
 ---
 
-<html
-  lang="en"
-  class="group layout"
-  data-sidebar-collapsed="false"
->
+<!doctype html>
+<html lang={locale}>
   <head>
-    <Font cssVariable="--font-ttnormal" />
-    <Font cssVariable="--font-ttrational" />
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width"
-    />
-    <SEO
-      title={title}
-      titleTemplate="%s | Edoardo Balzano"
-      titleDefault="Edoardo Balzano"
-      description={description}
-    />
-    <ClientRouter />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#101a19" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Edoardo Balzano" />
+    <meta name="twitter:card" content="summary" />
+    <title>{fullTitle}</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang={locale} href={canonicalUrl} />
+    {
+      alternateUrl && (
+        <link rel="alternate" hreflang={alternateLocale} href={alternateUrl} />
+      )
+    }
+    {
+      alternateUrl && (
+        <link
+          rel="alternate"
+          hreflang="x-default"
+          href={locale === "en" ? canonicalUrl : alternateUrl}
+        />
+      )
+    }
     <link rel="sitemap" href="/sitemap-index.xml" />
     <script is:inline>
-      // Prevent FOUC and margin shift by setting initial state immediately
-      const isCollapsed = localStorage.getItem("sidebar-collapsed") === "true";
-      document.documentElement.dataset.sidebarCollapsed = isCollapsed;
+      document.documentElement.classList.add("js");
+      const savedTheme = localStorage.getItem("color-theme");
+      const preferredTheme =
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = savedTheme || preferredTheme;
     </script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
-  <body>
-    <Sidebar>
-      <main
-        class="group-data-[sidebar-collapsed=true]/layout:m-auto transition-all duration-300 p-7 max-w-7xl m-auto min-h-screen"
-      >
-        <slot />
-      </main>
-    </Sidebar>
+  <body class={pageClass}>
+    <a class="skip-link" href="#main-content">
+      {locale === "it" ? "Vai al contenuto" : "Skip to content"}
+    </a>
+    <TopNav
+      locale={locale}
+      labels={profile.nav}
+      currentPath={Astro.url.pathname}
+    />
+    <main id="main-content">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="shell footer-grid">
+        <div>
+          <p class="footer-name">Edoardo Balzano</p>
+          <p>
+            {locale === "it"
+              ? "Sistemi, reti e sicurezza applicata."
+              : "Systems, networks, and applied security."}
+          </p>
+        </div>
+        <div class="footer-links" aria-label={locale === "it" ? "Profili esterni" : "External profiles"}>
+          <a href={socialLinks.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href={socialLinks.htb} target="_blank" rel="noopener noreferrer">Hack The Box</a>
+          <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="mailto:edoardo@edoardobalzano.com">Email</a>
+        </div>
+        <p class="footer-meta">© {new Date().getFullYear()} · {locale.toUpperCase()}</p>
+      </div>
+    </footer>
   </body>
 </html>

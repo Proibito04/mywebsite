@@ -1,0 +1,18 @@
+---
+import CVDocument from "../../components/CVDocument.astro";
+import { profiles } from "../../data/profile";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const content = profiles.it;
+---
+
+<BaseLayout
+  title={content.meta.cvTitle}
+  description={content.meta.cvDescription}
+  locale="it"
+  canonicalPath="/it/cv"
+  alternatePath="/cv"
+  pageClass="cv-page"
+>
+  <CVDocument content={content} />
+</BaseLayout>

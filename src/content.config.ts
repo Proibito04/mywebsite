@@ -10,6 +10,7 @@ const notes = defineCollection({
     description: z.string(),
     pubDate: z.date(),
     tags: z.array(z.string()).default([]),
+    lang: z.enum(['en', 'it']).default('en'),
   }),
 });
 
@@ -23,7 +24,8 @@ const writeups = defineCollection({
     difficulty: z.string().optional().nullable().transform(v => v ?? "easy"),
     tags: z.array(z.string()).nullable().transform(v => v ?? []),
     private: z.boolean().default(false),
-    created: z.date()
+    created: z.date(),
+    lang: z.enum(['en', 'it']).default('en'),
   }),
 });
 

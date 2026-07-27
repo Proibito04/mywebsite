@@ -1,0 +1,184 @@
+---
+interface Props {
+  locale: "en" | "it";
+}
+
+const { locale } = Astro.props;
+const label =
+  locale === "it"
+    ? "Percorso da Torino a Istanbul per l’Erasmus 2025/26"
+    : "Route from Turin to Istanbul for the 2025/26 Erasmus exchange";
+---
+
+<div class="journey-graphic" role="img" aria-label={label}>
+  <svg viewBox="0 0 720 330" aria-hidden="true">
+    <g class="map-grid">
+      <path d="M20 65H700M20 135H700M20 205H700M20 275H700" />
+      <path d="M100 20V310M220 20V310M340 20V310M460 20V310M580 20V310" />
+    </g>
+    <path class="route-shadow" d="M105 230C195 128 302 251 372 170S528 84 620 124" />
+    <path class="route" d="M105 230C195 128 302 251 372 170S528 84 620 124" />
+    <circle class="route-packet" r="5">
+      <animateMotion
+        dur="6s"
+        repeatCount="indefinite"
+        path="M105 230C195 128 302 251 372 170S528 84 620 124"
+      />
+    </circle>
+    <circle class="city-node city-start" cx="105" cy="230" r="9" />
+    <circle class="city-node city-end" cx="620" cy="124" r="9" />
+    <text class="city-name" x="72" y="265">TORINO</text>
+    <text class="city-code" x="72" y="281">45.0° N</text>
+    <text class="city-name" x="575" y="94">ISTANBUL</text>
+    <text class="city-code" x="575" y="110">41.0° N</text>
+    <text class="route-label" x="278" y="128">ERASMUS / 2025—26</text>
+  </svg>
+  <div class="journey-pill journey-pill-left">
+    <span>UNiTO</span>
+    <small>BSc → MSc</small>
+  </div>
+  <div class="journey-pill journey-pill-right">
+    <span>SABANCI</span>
+    <small>exchange · AquaSecure</small>
+  </div>
+</div>
+
+<style>
+  .journey-graphic {
+    position: relative;
+    min-height: 21rem;
+    padding: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 0.35rem;
+    background: var(--surface-strong);
+    color: #edf3ed;
+  }
+
+  svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .map-grid {
+    fill: none;
+    stroke: rgba(237, 243, 237, 0.07);
+    stroke-width: 1;
+  }
+
+  .route-shadow {
+    fill: none;
+    stroke: rgba(99, 215, 208, 0.13);
+    stroke-width: 16;
+  }
+
+  .route {
+    fill: none;
+    stroke: #c6f04d;
+    stroke-dasharray: 6 9;
+    stroke-linecap: round;
+    stroke-width: 2;
+  }
+
+  .city-node {
+    fill: #101a19;
+    stroke-width: 4;
+  }
+
+  .city-start {
+    stroke: #63d7d0;
+  }
+
+  .city-end {
+    stroke: #c6f04d;
+  }
+
+  .route-packet {
+    fill: #fff;
+    filter: drop-shadow(0 0 6px #c6f04d);
+  }
+
+  .city-name,
+  .route-label {
+    fill: #edf3ed;
+    font-family: "Fira Code", monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .city-code {
+    fill: #90a39a;
+    font-family: "Fira Code", monospace;
+    font-size: 8px;
+  }
+
+  .route-label {
+    fill: #90a39a;
+    font-size: 8px;
+  }
+
+  .journey-pill {
+    position: absolute;
+    bottom: 1rem;
+    display: grid;
+    min-width: 9rem;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid rgba(237, 243, 237, 0.16);
+    border-radius: 0.25rem;
+    background: rgba(16, 26, 25, 0.82);
+    backdrop-filter: blur(8px);
+  }
+
+  .journey-pill span {
+    color: #edf3ed;
+    font-family: "Fira Code", monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+
+  .journey-pill small {
+    color: #90a39a;
+    font-size: 0.58rem;
+  }
+
+  .journey-pill-left {
+    left: 1rem;
+  }
+
+  .journey-pill-right {
+    right: 1rem;
+    text-align: right;
+  }
+
+  @media (max-width: 520px) {
+    .journey-graphic {
+      min-height: 18rem;
+      padding: 0.5rem;
+    }
+
+    .journey-pill {
+      bottom: 0.5rem;
+      min-width: auto;
+      padding: 0.5rem;
+    }
+
+    .journey-pill-left {
+      left: 0.5rem;
+    }
+
+    .journey-pill-right {
+      right: 0.5rem;
+    }
+
+    .journey-pill small {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .route-packet {
+      display: none;
+    }
+  }
+</style>

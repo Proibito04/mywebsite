@@ -9,20 +9,26 @@ interface Props {
 }
 
 const { frontmatter, headings } = Astro.props;
+const locale = frontmatter.lang === "it" ? "it" : "en";
 ---
 
-<BaseLayout title={frontmatter.name || frontmatter.title} description={frontmatter.description}>
-  <div class="flex flex-col lg:flex-row gap-8">
-    <article class="prose prose-invert prose-headings:text-sage-green prose-a:text-sage-green prose-code:text-off-white max-w-none flex-grow">
-      <header class="mb-12 border-b border-forest-muted pb-8">
-        <h1 class="text-4xl font-bold mb-2">{frontmatter.name || frontmatter.title}</h1>
-        <div class="text-off-white/60 flex gap-4 text-sm">
-          <span>{new Date(frontmatter.created || frontmatter.pubDate).toLocaleDateString()}</span>
-          {(frontmatter.name || frontmatter.title) && <span>Machine: {frontmatter.name || frontmatter.title}</span>}
-        </div>
-      </header>
-      <slot />
-    </article>
-    <TableOfContents headings={headings ?? []} />
+<BaseLayout
+  title={frontmatter.name || frontmatter.title}
+  description={frontmatter.description}
+  locale={locale}
+>
+  <div class="content-shell">
+    <div class="flex flex-col lg:flex-row gap-8 items-start">
+      <article class="prose prose-headings:text-sage-green prose-a:text-sage-green prose-code:text-off-white max-w-none flex-grow reader-card note-reader">
+        <header class="note-header mb-12 border-b border-forest-muted pb-8">
+          <h1 class="text-4xl font-bold mb-2">{frontmatter.name || frontmatter.title}</h1>
+          <div class="note-meta text-off-white/60 flex gap-4 text-sm">
+            <span>{new Date(frontmatter.created || frontmatter.pubDate).toLocaleDateString()}</span>
+          </div>
+        </header>
+        <slot />
+      </article>
+      <TableOfContents headings={headings ?? []} />
+    </div>
   </div>
 </BaseLayout>

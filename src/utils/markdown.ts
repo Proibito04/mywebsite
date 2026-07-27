@@ -25,8 +25,39 @@ export async function parseMarkdownToNodes(rawMarkdown: string) {
   await parseProcessor.run(mdast);
 
   const elevatedNodes: any[] = [];
+  const usedHeadingSlugs = new Map<string, number>();
+
+  const headingText = (node: any): string => {
+    if (typeof node?.value === "string") return node.value;
+    if (!Array.isArray(node?.children)) return "";
+    return node.children.map(headingText).join("");
+  };
+
+  const createHeadingSlug = (value: string) => {
+    const base =
+      value
+        .toLowerCase()
+        .trim()
+        .replace(/[^\p{Letter}\p{Number}\s-]/gu, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-") || "section";
+    const count = usedHeadingSlugs.get(base) ?? 0;
+    usedHeadingSlugs.set(base, count + 1);
+    return count === 0 ? base : `${base}-${count}`;
+  };
 
   mdast.children.forEach((node: any) => {
+    if (node.type === "heading") {
+      const id = createHeadingSlug(headingText(node));
+      node.data = {
+        ...node.data,
+        hProperties: {
+          ...node.data?.hProperties,
+          id,
+        },
+      };
+    }
+
     if (node.type === "paragraph") {
       let currentSubParagraph: any[] = [];
 

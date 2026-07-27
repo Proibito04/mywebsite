@@ -1,0 +1,95 @@
+---
+import Download from "lucide-astro/Download";
+import Maximize2 from "lucide-astro/Maximize2";
+import X from "lucide-astro/X";
+import type { Credential, ProfileContent } from "../data/profile";
+
+interface Props {
+  credential: Credential;
+  labels: ProfileContent["home"];
+  locale: "en" | "it";
+}
+
+const { credential, labels, locale } = Astro.props;
+const issuerLabel = locale === "it" ? "Emesso da" : "Issued by";
+const yearLabel = locale === "it" ? "Anno" : "Year";
+---
+
+<div class="credential-grid">
+  <a
+    class="certificate-trigger"
+    href={credential.pdf}
+    target="_blank"
+    rel="noreferrer"
+    data-certificate-trigger
+  >
+    <img
+      src={credential.preview}
+      alt={locale === "it"
+        ? "Attestato di finalista CyberChallenge.IT 2024 intestato a Edoardo Balzano"
+        : "CyberChallenge.IT 2024 finalist certificate issued to Edoardo Balzano"}
+      width="1400"
+      height="989"
+      loading="lazy"
+      decoding="async"
+    />
+    <span><Maximize2 size={13} aria-hidden="true" /> {labels.openCertificate}</span>
+  </a>
+
+  <div class="credential-copy">
+    <p class="eyebrow">{labels.credentialKicker}</p>
+    <h2>{credential.title}</h2>
+    <p>{credential.summary}</p>
+    <dl class="credential-meta">
+      <dt>{issuerLabel}</dt>
+      <dd>{credential.issuer}</dd>
+      <dt>{yearLabel}</dt>
+      <dd>{credential.year}</dd>
+    </dl>
+    <a class="button" href={credential.pdf} download>
+      <Download size={16} aria-hidden="true" />
+      {labels.downloadCertificate}
+    </a>
+  </div>
+</div>
+
+<dialog class="certificate-dialog" data-certificate-dialog aria-labelledby="certificate-title">
+  <div class="dialog-toolbar">
+    <p id="certificate-title">{credential.title}</p>
+    <button class="dialog-close" type="button" data-certificate-close>
+      <X size={16} aria-hidden="true" />
+      {labels.close}
+    </button>
+  </div>
+  <img
+    src={credential.preview}
+    alt={locale === "it"
+      ? "Anteprima completa dell’attestato CyberChallenge.IT 2024"
+      : "Full preview of the CyberChallenge.IT 2024 certificate"}
+    width="1400"
+    height="989"
+  />
+</dialog>
+
+<script>
+  function initializeCertificate() {
+    const trigger = document.querySelector<HTMLAnchorElement>("[data-certificate-trigger]");
+    const dialog = document.querySelector<HTMLDialogElement>("[data-certificate-dialog]");
+    const close = document.querySelector<HTMLButtonElement>("[data-certificate-close]");
+    if (!trigger || !dialog || trigger.dataset.initialized === "true") return;
+
+    trigger.dataset.initialized = "true";
+    trigger.addEventListener("click", (event) => {
+      if (typeof dialog.showModal !== "function") return;
+      event.preventDefault();
+      dialog.showModal();
+    });
+    close?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  }
+
+  initializeCertificate();
+  document.addEventListener("astro:after-swap", initializeCertificate);
+</script>

@@ -1,0 +1,240 @@
+---
+interface Props {
+  label: string;
+  locale: "en" | "it";
+}
+
+const { label, locale } = Astro.props;
+const words =
+  locale === "it"
+    ? {
+        traffic: "traffico",
+        analyze: "analizza",
+        isolate: "isola",
+        operate: "gestisci",
+        live: "telemetria live",
+        stack: "stack container",
+      }
+    : {
+        traffic: "traffic",
+        analyze: "analyze",
+        isolate: "isolate",
+        operate: "operate",
+        live: "live telemetry",
+        stack: "container stack",
+      };
+---
+
+<div class="technical-frame infrastructure-frame">
+  <div class="frame-bar" aria-hidden="true">
+    <span>topology / 04</span>
+    <span class="frame-dots"><span></span><span></span><span></span></span>
+  </div>
+  <svg
+    class="infrastructure-graphic"
+    viewBox="0 0 620 520"
+    role="img"
+    aria-labelledby="infrastructure-title infrastructure-desc"
+  >
+    <title id="infrastructure-title">{label}</title>
+    <desc id="infrastructure-desc">
+      {words.traffic} → {words.analyze} → {words.isolate} → {words.operate}
+    </desc>
+    <defs>
+      <linearGradient
+        id="path-gradient"
+        gradientUnits="userSpaceOnUse"
+        x1="36"
+        y1="0"
+        x2="580"
+        y2="0"
+      >
+        <stop offset="0" stop-color="var(--cyan)" />
+        <stop offset="1" stop-color="var(--accent)" />
+      </linearGradient>
+      <filter id="soft-glow" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="4" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+
+    <g class="diagram-grid" aria-hidden="true">
+      <path d="M24 86H596M24 174H596M24 262H596M24 350H596M24 438H596" />
+      <path d="M112 24V496M224 24V496M336 24V496M448 24V496" />
+    </g>
+
+    <g class="connection-lines" aria-hidden="true">
+      <path d="M96 138H264" />
+      <path d="M342 138H510V252" />
+      <path d="M304 181V336H422" />
+      <path d="M510 298V402H344" />
+      <path d="M422 374H304" />
+    </g>
+
+    <g class="packets" aria-hidden="true">
+      <circle class="packet packet-one" r="5">
+        <animateMotion
+          dur="5s"
+          begin="0s"
+          repeatCount="indefinite"
+          path="M96 138H264"
+        />
+      </circle>
+      <circle class="packet packet-two" r="5">
+        <animateMotion
+          dur="6s"
+          begin="0.8s"
+          repeatCount="indefinite"
+          path="M342 138H510V252"
+        />
+      </circle>
+      <circle class="packet packet-three" r="5">
+        <animateMotion
+          dur="5.5s"
+          begin="1.2s"
+          repeatCount="indefinite"
+          path="M510 298V402H344"
+        />
+      </circle>
+    </g>
+
+    <g class="node node-ingress">
+      <rect x="36" y="92" width="136" height="92" rx="8" />
+      <circle cx="60" cy="116" r="6" />
+      <text x="60" y="151">{words.traffic}</text>
+      <text class="node-code" x="60" y="168">PCAP / HTTP</text>
+    </g>
+
+    <g class="node node-analysis">
+      <rect x="264" y="92" width="156" height="92" rx="8" />
+      <circle cx="288" cy="116" r="6" />
+      <text x="288" y="151">{words.analyze}</text>
+      <text class="node-code" x="288" y="168">tshark + worker</text>
+    </g>
+
+    <g class="node node-isolation">
+      <rect x="438" y="252" width="142" height="92" rx="8" />
+      <circle cx="462" cy="276" r="6" />
+      <text x="462" y="311">{words.isolate}</text>
+      <text class="node-code" x="462" y="328">Docker network</text>
+    </g>
+
+    <g class="node node-operations">
+      <rect x="180" y="336" width="166" height="94" rx="8" />
+      <circle cx="204" cy="360" r="6" />
+      <text x="204" y="395">{words.operate}</text>
+      <text class="node-code" x="204" y="412">Linux / Compose</text>
+    </g>
+
+    <g class="telemetry-card">
+      <rect x="390" y="388" width="190" height="76" rx="7" />
+      <text x="410" y="416">{words.live}</text>
+      <polyline points="410,446 432,431 453,438 477,417 500,433 525,411 557,424" />
+    </g>
+
+    <text class="edge-label" x="37" y="70">edge_01</text>
+    <text class="edge-label" x="438" y="233">{words.stack}</text>
+  </svg>
+</div>
+
+<style>
+  .infrastructure-frame {
+    overflow: hidden;
+  }
+
+  .infrastructure-graphic {
+    width: 100%;
+    height: auto;
+  }
+
+  .diagram-grid {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 1;
+  }
+
+  .connection-lines {
+    fill: none;
+    stroke: url("#path-gradient");
+    stroke-dasharray: 7 9;
+    stroke-linecap: round;
+    stroke-width: 2;
+    animation: dash-flow 9s linear infinite;
+  }
+
+  .node rect,
+  .telemetry-card rect {
+    fill: var(--surface-raised);
+    stroke: var(--line-strong);
+    stroke-width: 1.3;
+  }
+
+  .node circle {
+    fill: var(--accent);
+    filter: url("#soft-glow");
+  }
+
+  .node text,
+  .telemetry-card text {
+    fill: var(--ink);
+    font-family: var(--font-ttrational);
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+
+  .node .node-code,
+  .edge-label {
+    fill: var(--subtle);
+    font-family: "Fira Code", monospace;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+  }
+
+  .node-analysis circle {
+    fill: var(--cyan);
+  }
+
+  .node-isolation circle {
+    fill: var(--orange);
+  }
+
+  .telemetry-card text {
+    fill: var(--muted);
+    font-family: "Fira Code", monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .telemetry-card polyline {
+    fill: none;
+    stroke: var(--cyan);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  .packet {
+    fill: var(--accent-bright);
+    filter: url("#soft-glow");
+  }
+
+  @keyframes dash-flow {
+    to {
+      stroke-dashoffset: -160;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .connection-lines {
+      animation: none;
+    }
+
+    .packet {
+      display: none;
+    }
+  }
+</style>
