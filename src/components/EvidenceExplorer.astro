@@ -1,0 +1,141 @@
+---
+import ArrowUpRight from "lucide-astro/ArrowUpRight";
+import type {
+  EvidenceCategory,
+  EvidenceItem,
+  ProfileContent,
+} from "../data/profile";
+
+interface Props {
+  items: EvidenceItem[];
+  labels: ProfileContent["explorerLabels"];
+}
+
+const { items, labels } = Astro.props;
+const categories: EvidenceCategory[] = ["build", "break", "operate", "lead"];
+---
+
+<div class="evidence-explorer" data-evidence-explorer>
+  <div class="evidence-tabs" role="tablist" aria-label="Evidence categories">
+    {
+      categories.map((category, index) => (
+        <button
+          class="evidence-tab"
+          type="button"
+          role="tab"
+          id={`evidence-tab-${category}`}
+          aria-controls={`evidence-panel-${category}`}
+          aria-selected={index === 0 ? "true" : "false"}
+          tabindex={index === 0 ? 0 : -1}
+          data-evidence-tab={category}
+        >
+          <span>{labels[category]}</span>
+          <span aria-hidden="true"> / 0{index + 1}</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="evidence-panels">
+    {
+      categories.map((category) => (
+        <section
+          class="evidence-panel"
+          id={`evidence-panel-${category}`}
+          role="tabpanel"
+          aria-labelledby={`evidence-tab-${category}`}
+          data-evidence-panel={category}
+        >
+          <div class="evidence-grid">
+            {items
+              .filter((item) => item.category === category)
+              .map((item, index) => (
+                <article
+                  class:list={[
+                    "evidence-card",
+                    item.featured && "evidence-card-featured",
+                  ]}
+                >
+                  <span class="card-index" aria-hidden="true">
+                    {category.slice(0, 2).toUpperCase()}_{String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p class="eyebrow">{item.eyebrow}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.summary}</p>
+                  <ul class="tags" aria-label="Technologies and qualities">
+                    {item.tags.map((tag) => <li>{tag}</li>)}
+                  </ul>
+                  {item.href && (
+                    <a
+                      class="card-link"
+                      href={item.href}
+                      target={item.href.startsWith("http") ? "_blank" : undefined}
+                      rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    >
+                      <span class="sr-only">
+                        {item.title} <ArrowUpRight size={14} aria-hidden="true" />
+                      </span>
+                    </a>
+                  )}
+                </article>
+              ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  function initializeEvidenceExplorer() {
+    document.querySelectorAll<HTMLElement>("[data-evidence-explorer]").forEach((explorer) => {
+      if (explorer.dataset.initialized === "true") return;
+      explorer.dataset.initialized = "true";
+
+      const tabs = Array.from(
+        explorer.querySelectorAll<HTMLButtonElement>("[data-evidence-tab]"),
+      );
+      const panels = Array.from(
+        explorer.querySelectorAll<HTMLElement>("[data-evidence-panel]"),
+      );
+
+      const activate = (tab: HTMLButtonElement, focus = false) => {
+        const category = tab.dataset.evidenceTab;
+        tabs.forEach((candidate) => {
+          const active = candidate === tab;
+          candidate.setAttribute("aria-selected", String(active));
+          candidate.tabIndex = active ? 0 : -1;
+        });
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.evidencePanel !== category;
+        });
+        if (focus) tab.focus();
+      };
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => activate(tab));
+        tab.addEventListener("keydown", (event) => {
+          let nextIndex: number | undefined;
+          if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+            nextIndex = (index + 1) % tabs.length;
+          } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+            nextIndex = (index - 1 + tabs.length) % tabs.length;
+          } else if (event.key === "Home") {
+            nextIndex = 0;
+          } else if (event.key === "End") {
+            nextIndex = tabs.length - 1;
+          }
+          if (nextIndex !== undefined) {
+            event.preventDefault();
+            activate(tabs[nextIndex], true);
+          }
+        });
+      });
+
+      if (tabs[0]) activate(tabs[0]);
+    });
+  }
+
+  initializeEvidenceExplorer();
+  document.addEventListener("astro:after-swap", initializeEvidenceExplorer);
+</script>

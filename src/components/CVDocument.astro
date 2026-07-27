@@ -1,0 +1,289 @@
+---
+import Download from "lucide-astro/Download";
+import ExternalLink from "lucide-astro/ExternalLink";
+import FileText from "lucide-astro/FileText";
+import Printer from "lucide-astro/Printer";
+import type { ProfileContent } from "../data/profile";
+import { socialLinks } from "../data/profile";
+
+interface Props {
+  content: ProfileContent;
+}
+
+const { content } = Astro.props;
+const { locale } = content;
+const projectLinkLabel = locale === "it" ? "Progetto" : "Project";
+const portraitAlt =
+  locale === "it"
+    ? "Ritratto professionale di Edoardo Balzano"
+    : "Professional portrait of Edoardo Balzano";
+const locationSeparator = " · ";
+const evidenceRows =
+  locale === "it"
+    ? [
+        {
+          skill: "Docker · Linux · reti",
+          sources: ["CTF Hammer", "Homelab Raspberry Pi", "AFFiNE"],
+        },
+        {
+          skill: "Analisi traffico · sistemi asincroni",
+          sources: ["tshark", "RabbitMQ / Celery", "CyberChallenge"],
+        },
+        {
+          skill: "Python · tooling di sicurezza",
+          sources: ["CTF Hammer backend", "Analizzatore HTA / JAR"],
+        },
+        {
+          skill: "OT / ICS · lavoro internazionale",
+          sources: ["AquaSecure", "Sabancı Erasmus"],
+        },
+        {
+          skill: "Responsabilità · comunicazione",
+          sources: ["Il MuMa", "Osteria La Cantinella"],
+        },
+      ]
+    : [
+        {
+          skill: "Docker · Linux · networking",
+          sources: ["CTF Hammer", "Raspberry Pi homelab", "AFFiNE"],
+        },
+        {
+          skill: "Traffic analysis · async systems",
+          sources: ["tshark", "RabbitMQ / Celery", "CyberChallenge"],
+        },
+        {
+          skill: "Python · security tooling",
+          sources: ["CTF Hammer backend", "HTA / JAR analyzer"],
+        },
+        {
+          skill: "OT / ICS · international teamwork",
+          sources: ["AquaSecure", "Sabancı exchange"],
+        },
+        {
+          skill: "Ownership · communication",
+          sources: ["Il MuMa", "Osteria La Cantinella"],
+        },
+      ];
+---
+
+<header class="cv-hero">
+  <div class="narrow-shell cv-head">
+    <div class="cv-head-copy">
+      <p class="eyebrow">{content.cv.eyebrow}</p>
+      <h1>{content.cv.title}</h1>
+      <p class="cv-deck">{content.cv.intro}</p>
+      <p class="cv-location">{content.cv.location}</p>
+    </div>
+    <div class="cv-head-aside">
+      <figure class="cv-portrait">
+        <img
+          src="/media/edoardo-balzano-portrait.webp"
+          width="719"
+          height="1080"
+          alt={portraitAlt}
+          decoding="async"
+          fetchpriority="high"
+        />
+      </figure>
+      <button class="print-button js-only" type="button" data-print-cv>
+        <Printer size={16} aria-hidden="true" />
+        {content.cv.print}
+      </button>
+    </div>
+  </div>
+</header>
+
+<article class="narrow-shell cv-document" aria-label={content.cv.title}>
+  <section class="cv-section">
+    <h2 class="cv-section-title">{content.cv.profileTitle}</h2>
+    <div class="cv-section-content">
+      <p class="cv-profile-copy">{content.cv.profile}</p>
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2 class="cv-section-title">{content.cv.educationTitle}</h2>
+    <div class="cv-section-content">
+      <ol class="timeline">
+        {
+          content.education.map((experience) => (
+            <li class="timeline-item">
+              <div class="timeline-title">
+                <h3>{experience.organization}</h3>
+                <span class="timeline-period">{experience.period}</span>
+              </div>
+              <p class="timeline-role">
+                {experience.role}
+                {experience.location && (
+                  <span>
+                    {locationSeparator}
+                    {experience.location}
+                  </span>
+                )}
+              </p>
+              <p>{experience.summary}</p>
+              {experience.relatedProject && (
+                <div class="nested-project">
+                  <a
+                    href={experience.relatedProject.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {experience.relatedProject.name}{" "}
+                    <ExternalLink size={12} aria-hidden="true" />
+                  </a>
+                  <p>{experience.relatedProject.summary}</p>
+                </div>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2 class="cv-section-title">{content.cv.projectsTitle}</h2>
+    <div class="cv-section-content cv-project-list">
+      {
+        content.projects.map((project) => (
+          <article class="cv-project">
+            <span class="cv-project-number">{project.number}</span>
+            <div>
+              <h3>{project.title}</h3>
+              <p>
+                <strong>{project.status}</strong> — {project.summary} {project.detail}
+              </p>
+            </div>
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {projectLinkLabel} <ExternalLink size={11} aria-hidden="true" />
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2 class="cv-section-title">{content.cv.practiceTitle}</h2>
+    <div class="cv-section-content">
+      <div class="practice-card">
+        <div class="practice-copy">
+          <h3>{content.credential.title}</h3>
+          <p>
+            {content.credential.issuer}. {content.credential.summary}{" "}
+            {locale === "it"
+              ? "La pratica continua con HTB, challenge e writeup tecnici."
+              : "Ongoing practice continues through HTB machines, challenges, and technical writeups."}
+          </p>
+        </div>
+        <div class="practice-links">
+          <a class="practice-link" href={content.credential.pdf} download>
+            <Download size={14} aria-hidden="true" />
+            {content.cv.credentialPdfLabel}
+          </a>
+          <a
+            class="practice-link"
+            href={socialLinks.htb}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <ExternalLink size={13} aria-hidden="true" />
+            {content.cv.credentialHtbLabel}
+          </a>
+          <a class="practice-link" href="/writeups">
+            <FileText size={14} aria-hidden="true" />
+            {content.cv.credentialWriteupsLabel}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2 class="cv-section-title">{content.cv.leadershipTitle}</h2>
+    <div class="cv-section-content leadership-list">
+      {
+        content.leadership.map((experience) => (
+          <article class="leadership-item">
+            <h3>{experience.organization}</h3>
+            <p class="role">{experience.role}</p>
+            <p class="period">{experience.period}</p>
+            <p>{experience.summary}</p>
+            {experience.details && (
+              <ul class="compact-values">
+                {experience.details.map((detail) => <li>{detail}</li>)}
+              </ul>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2 class="cv-section-title">{content.cv.skillsTitle}</h2>
+    <div class="cv-section-content">
+      <div class="skills-grid">
+        {
+          content.skillGroups.map((group) => (
+            <article class="skill-group">
+              <h3>{group.title}</h3>
+              <p class="skill-summary">{group.summary}</p>
+              <p class="skill-tools">
+                <strong>{content.cv.skillsToolsLabel}:</strong>{" "}
+                {group.skills.join(" · ")}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="skills-context">{content.cv.skillsContext}</p>
+    </div>
+  </section>
+
+  <section class="cv-section evidence-map-section">
+    <div>
+      <h2 class="cv-section-title">{content.cv.evidenceTitle}</h2>
+      <p class="skill-group-note">{content.cv.evidenceIntro}</p>
+    </div>
+    <div class="cv-section-content evidence-map">
+      {
+        evidenceRows.map((row) => (
+          <div class="evidence-row">
+            <strong>{row.skill}</strong>
+            <div class="evidence-sources">
+              {row.sources.map((source) => <span>{source}</span>)}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2 class="cv-section-title">{content.cv.contactTitle}</h2>
+    <div class="cv-section-content contact-grid">
+      <a href="mailto:edoardo@edoardobalzano.com">edoardo@edoardobalzano.com</a>
+      <a href={socialLinks.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href={socialLinks.htb} target="_blank" rel="noopener noreferrer">Hack The Box</a>
+    </div>
+  </section>
+</article>
+
+<script>
+  function initializePrintButton() {
+    const button = document.querySelector<HTMLButtonElement>("[data-print-cv]");
+    if (!button || button.dataset.initialized === "true") return;
+    button.dataset.initialized = "true";
+    button.addEventListener("click", () => window.print());
+  }
+
+  initializePrintButton();
+  document.addEventListener("astro:after-swap", initializePrintButton);
+</script>

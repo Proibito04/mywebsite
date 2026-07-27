@@ -14,7 +14,9 @@ import ImgWriteup from "@/components/ImgWriteup.astro";
 import { parseMarkdownToNodes } from "../../utils/markdown";
 
 export async function getStaticPaths() {
-  const writeups = await getCollection("writeups");
+  const writeups = (await getCollection("writeups")).filter(
+    (entry) => !entry.data.private,
+  );
   return writeups.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },
@@ -49,7 +51,8 @@ const modifiedDate = entry.data.modified
   : null;
 ---
 
-<BaseLayout title={entry.data.name}>
+<BaseLayout title={entry.data.name} locale={entry.data.lang}>
+  <div class="content-shell writeup-shell">
   <div class="text-sm breadcrumbs mb-6 text-off-white/70">
     <ul>
       <li>
@@ -162,10 +165,10 @@ const modifiedDate = entry.data.modified
       </div>
 
       <article
-        class="prose-lg max-w-none text-off-white
+        class="prose-lg max-w-none text-off-white reader-card writeup-reader
         prose-headings:text-sage-green prose-a:text-sage-green
         prose-img:rounded-2xl prose-img:shadow-lg
-        selection:bg-sage-green/30 px-2 sm:px-0 dark:prose-invert"
+        selection:bg-sage-green/30 dark:prose-invert"
       >
         {
           nodes.map((node) => {
@@ -199,5 +202,6 @@ const modifiedDate = entry.data.modified
     <div class="hidden lg:block w-64 shrink-0 sticky top-8">
       <TableOfContents headings={headings} />
     </div>
+  </div>
   </div>
 </BaseLayout>

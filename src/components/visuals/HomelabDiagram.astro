@@ -1,0 +1,264 @@
+---
+interface Props {
+  locale: "en" | "it";
+}
+
+const { locale } = Astro.props;
+const t =
+  locale === "it"
+    ? {
+        label: "Topologia anonimizzata dell’homelab",
+        public: "Percorso pubblico",
+        private: "Percorso privato",
+        tunnel: "Cloudflare Tunnel",
+        tailnet: "Tailscale",
+        accessNote: "accesso controllato",
+        device: "Raspberry Pi 5",
+        host: "Docker host · Linux",
+        affine: "AFFiNE",
+        apps: "App private",
+        upkeep: "Manutenzione",
+        noSecrets: "Nessun dominio, IP o porta pubblicato",
+      }
+    : {
+        label: "Sanitized homelab topology",
+        public: "Public path",
+        private: "Private path",
+        tunnel: "Cloudflare Tunnel",
+        tailnet: "Tailscale",
+        accessNote: "controlled access",
+        device: "Raspberry Pi 5",
+        host: "Docker host · Linux",
+        affine: "AFFiNE",
+        apps: "Private apps",
+        upkeep: "Maintenance",
+        noSecrets: "No domains, IPs, or ports published",
+      };
+---
+
+<div class="homelab-diagram" role="img" aria-label={t.label}>
+  <div class="access-lanes">
+    <div class="lane lane-public">
+      <span>{t.public}</span>
+      <strong>{t.tunnel}</strong>
+      <small>{t.accessNote}</small>
+    </div>
+    <div class="lane lane-private">
+      <span>{t.private}</span>
+      <strong>{t.tailnet}</strong>
+      <small>{t.accessNote}</small>
+    </div>
+  </div>
+
+  <div class="lane-merge" aria-hidden="true">
+    <span></span><span></span>
+  </div>
+
+  <div class="host">
+    <span class="host-status">host_01 · online</span>
+    <div class="host-title">
+      <div class="pi-mark" aria-hidden="true">π</div>
+      <div>
+        <strong>{t.device}</strong>
+        <small>{t.host}</small>
+      </div>
+    </div>
+    <div class="containers">
+      <div><i></i><span>{t.affine}</span></div>
+      <div><i></i><span>{t.apps}</span></div>
+      <div><i></i><span>{t.upkeep}</span></div>
+    </div>
+  </div>
+
+  <p class="sanitized-note"><span aria-hidden="true">×</span>{t.noSecrets}</p>
+</div>
+
+<style>
+  .homelab-diagram {
+    position: relative;
+    padding: clamp(1rem, 3vw, 2rem);
+    border: 1px solid var(--line-strong);
+    border-radius: 0.45rem;
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px),
+      var(--surface);
+    background-size: 32px 32px;
+    box-shadow: var(--shadow);
+  }
+
+  .access-lanes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .lane {
+    display: grid;
+    padding: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 0.3rem;
+    background: color-mix(in srgb, var(--surface-raised) 92%, transparent);
+  }
+
+  .lane > span,
+  .host-status {
+    color: var(--subtle);
+    font-family: "Fira Code", monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .lane strong {
+    margin-top: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  .lane small {
+    margin-top: 0.2rem;
+    color: var(--muted);
+    font-size: 0.68rem;
+  }
+
+  .lane-public {
+    border-top: 3px solid var(--orange);
+  }
+
+  .lane-private {
+    border-top: 3px solid var(--cyan);
+  }
+
+  .lane-merge {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    height: 3.8rem;
+  }
+
+  .lane-merge span {
+    position: relative;
+    width: 1px;
+    background: var(--line-strong);
+  }
+
+  .lane-merge span:first-child {
+    transform: translateX(25%) skewX(36deg);
+    transform-origin: bottom;
+  }
+
+  .lane-merge span:last-child {
+    transform: translateX(-25%) skewX(-36deg);
+    transform-origin: bottom;
+  }
+
+  .host {
+    width: min(100%, 31rem);
+    margin-inline: auto;
+    padding: 1.25rem;
+    border: 1px solid var(--line-strong);
+    border-top: 4px solid var(--accent);
+    border-radius: 0.35rem;
+    background: var(--surface-raised);
+  }
+
+  .host-title {
+    display: flex;
+    align-items: center;
+    margin-top: 0.75rem;
+    gap: 0.8rem;
+  }
+
+  .host-title > div:last-child {
+    display: grid;
+  }
+
+  .host-title strong {
+    font-family: var(--font-ttrational);
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+  }
+
+  .host-title small {
+    color: var(--muted);
+    font-size: 0.7rem;
+  }
+
+  .pi-mark {
+    display: grid;
+    width: 2.65rem;
+    height: 2.65rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--accent-bright);
+    color: var(--ink-on-accent);
+    font-family: Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .containers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 1.25rem;
+    gap: 0.5rem;
+  }
+
+  .containers div {
+    display: grid;
+    min-height: 5rem;
+    align-content: space-between;
+    padding: 0.65rem;
+    border: 1px solid var(--line);
+    border-radius: 0.2rem;
+    background: var(--page-soft);
+  }
+
+  .containers i {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 0 3px var(--cyan-soft);
+  }
+
+  .containers span {
+    font-family: "Fira Code", monospace;
+    font-size: 0.58rem;
+  }
+
+  .sanitized-note {
+    display: flex;
+    justify-content: center;
+    margin: 1.2rem 0 0;
+    gap: 0.45rem;
+    color: var(--subtle);
+    font-family: "Fira Code", monospace;
+    font-size: 0.57rem;
+    text-align: center;
+  }
+
+  .sanitized-note span {
+    color: var(--orange);
+  }
+
+  @media (max-width: 520px) {
+    .access-lanes,
+    .containers {
+      grid-template-columns: 1fr;
+    }
+
+    .lane-merge {
+      display: none;
+    }
+
+    .host {
+      margin-top: 1rem;
+    }
+
+    .containers div {
+      min-height: 3.5rem;
+    }
+  }
+</style>

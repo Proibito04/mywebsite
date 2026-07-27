@@ -1,0 +1,127 @@
+---
+import Menu from "lucide-astro/Menu";
+import Moon from "lucide-astro/Moon";
+import Sun from "lucide-astro/Sun";
+import type { Locale, ProfileContent } from "../data/profile";
+
+interface Props {
+  locale: Locale;
+  labels: ProfileContent["nav"];
+  currentPath: string;
+}
+
+const { locale, labels, currentPath } = Astro.props;
+const prefix = locale === "it" ? "/it" : "";
+const normalizedPath =
+  currentPath.length > 1 ? currentPath.replace(/\/$/, "") : currentPath;
+const alternateHref =
+  normalizedPath === "/cv"
+    ? "/it/cv"
+    : normalizedPath === "/it/cv"
+      ? "/cv"
+      : locale === "it"
+        ? "/"
+        : "/it";
+const alternateLabel = locale === "it" ? "EN" : "IT";
+
+const navItems = [
+  { href: prefix || "/", label: labels.home, match: locale === "it" ? ["/it"] : ["/"] },
+  { href: "/notes", label: labels.notes, match: ["/notes"] },
+  { href: "/writeups", label: labels.writeups, match: ["/writeups"] },
+  { href: `${prefix}/cv`, label: labels.cv, match: [`${prefix}/cv`] },
+];
+
+const isActive = (matches: string[]) =>
+  matches.some((path) =>
+    path === "/" || path === "/it"
+      ? normalizedPath === path
+      : normalizedPath === path || normalizedPath.startsWith(`${path}/`),
+  );
+---
+
+<header class="site-header" data-site-header>
+  <nav class="top-nav shell" aria-label="Primary navigation">
+    <a class="brand" href={prefix || "/"} aria-label={`Edoardo Balzano — ${labels.home}`}>
+      <span class="brand-mark" aria-hidden="true">EB</span>
+      <span class="brand-copy">
+        <strong>Edoardo Balzano</strong>
+        <small>infrastructure / security</small>
+      </span>
+    </a>
+
+    <div class="desktop-nav">
+      <ul class="nav-links">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isActive(item.match) ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li><a href="mailto:edoardo@edoardobalzano.com">{labels.contact}</a></li>
+      </ul>
+    </div>
+
+    <details class="nav-disclosure">
+      <summary aria-label={labels.menu}>
+        <Menu size={20} aria-hidden="true" />
+        <span>{labels.menu}</span>
+      </summary>
+      <div class="nav-panel">
+        <ul class="nav-links">
+          {
+            navItems.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  aria-current={isActive(item.match) ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+          <li><a href="mailto:edoardo@edoardobalzano.com">{labels.contact}</a></li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="nav-tools">
+      <a class="locale-switch" href={alternateHref} hreflang={locale === "it" ? "en" : "it"}>
+        <span aria-hidden="true">{alternateLabel}</span>
+        <span class="sr-only">
+          {locale === "it" ? "Switch to English" : "Passa all’italiano"}
+        </span>
+      </a>
+      <button class="theme-toggle js-only" type="button" data-theme-toggle aria-label={labels.theme}>
+        <Sun class="theme-icon-light" size={17} aria-hidden="true" />
+        <Moon class="theme-icon-dark" size={17} aria-hidden="true" />
+      </button>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const setupNavigation = () => {
+    const disclosure = document.querySelector<HTMLDetailsElement>(".nav-disclosure");
+    disclosure?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => disclosure.removeAttribute("open"));
+    });
+
+    const toggle = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+    toggle?.addEventListener("click", () => {
+      const root = document.documentElement;
+      const next = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      localStorage.setItem("color-theme", next);
+    });
+  };
+
+  setupNavigation();
+  document.addEventListener("astro:after-swap", setupNavigation);
+</script>

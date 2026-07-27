@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Edoardo Balzano</title>
+  <rect x="9" y="8" width="50" height="50" rx="8" fill="#117f7c" opacity=".55" />
+  <rect x="4" y="3" width="50" height="50" rx="8" fill="#c6f04d" stroke="#557a16" stroke-width="2" />
+  <text
+    x="29"
+    y="34"
+    fill="#121812"
+    font-family="ui-monospace, SFMono-Regular, Consolas, monospace"
+    font-size="19"
+    font-weight="700"
+    text-anchor="middle"
+  >EB</text>
+</svg>

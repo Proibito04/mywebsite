@@ -1,37 +1,46 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const notes = (await getCollection("notes")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+const dateFormatter = new Intl.DateTimeFormat("en-GB", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
 ---
 
-<BaseLayout title="Cybersecurity Notes">
-  <h1 class="text-4xl font-bold text-sage-green mb-8">Cybersecurity Notes</h1>
-  <div class="grid gap-6">
-    {
-      notes.map((note) => (
-        <a
-          href={`/notes/${note.id}`}
-          class="block p-6 bg-forest-dark border border-forest-muted rounded-lg hover:border-sage-green transition-colors"
-        >
-          <div class="flex justify-between items-start mb-2">
-            <h2 class="text-xl font-bold text-sage-green">{note.data.title}</h2>
-            <span class="text-sm text-off-white/40">
-              {new Date(note.data.pubDate).toLocaleDateString()}
-            </span>
-          </div>
-          <p class="text-off-white/60 mb-4">{note.data.description}</p>
-          <div class="flex gap-2">
-            {note.data.tags.map((tag) => (
-              <span class="text-xs px-2 py-1 bg-forest-muted rounded text-sage-green">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </a>
-      ))
-    }
+<BaseLayout
+  title="Cybersecurity Notes"
+  description="Study notes on cybersecurity, systems, networks, and infrastructure."
+>
+  <div class="content-shell notes-index">
+    <header class="listing-head">
+      <p class="eyebrow">Study log</p>
+      <h1>Cybersecurity notes</h1>
+      <p>
+        Concepts, experiments, and implementation details captured while learning.
+        Each entry stays in its original language.
+      </p>
+    </header>
+    <div class="content-list">
+      {
+        notes.map((note) => (
+          <a href={`/notes/${note.id}`} class="content-card">
+            <div>
+              <h2>{note.data.title}</h2>
+              <span class="language-badge">{note.data.lang}</span>
+            </div>
+            <span class="content-card-meta">{dateFormatter.format(note.data.pubDate)}</span>
+            <p>{note.data.description}</p>
+            <ul class="tags">
+              {note.data.tags.map((tag) => <li>{tag}</li>)}
+            </ul>
+          </a>
+        ))
+      }
+    </div>
   </div>
 </BaseLayout>
