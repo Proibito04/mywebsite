@@ -3,11 +3,8 @@
   "type": "module",
   "version": "0.0.5",
   "scripts": {
-    "predev": "rm -rf ./src/content/writeups && ln -s /home/edoardo/Vault/HTB/ ./src/content/writeups",
     "dev": "astro dev",
     "build": "astro build",
-    "sync-vault": "rm -rf ./src/content/writeups && cp -r /home/edoardo/Vault/HTB ./src/content/writeups",
-    "push-all": "bun run sync-vault && git commit -m 'chore: sync htb writeups' && git push",
     "prepare": "husky install"
   },
   "dependencies": {

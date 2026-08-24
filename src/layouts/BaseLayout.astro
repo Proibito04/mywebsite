@@ -35,10 +35,20 @@ const jsonLd = {
   url: new URL(locale === "it" ? "/it" : "/", Astro.site).toString(),
   email: "mailto:edoardo@edoardobalzano.com",
   sameAs: [socialLinks.github, socialLinks.linkedin, socialLinks.htb],
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: "University of Turin",
-  },
+  alumniOf: [
+    {
+      "@type": "CollegeOrUniversity",
+      name: "Politecnico di Torino",
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      name: "University of Turin",
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      name: "Sabancı University",
+    },
+  ],
   knowsAbout: [
     "Cybersecurity",
     "Infrastructure security",

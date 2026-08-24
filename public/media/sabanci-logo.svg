@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" role="img" aria-labelledby="title desc">
+  <title id="title">Sabancı University</title>
+  <desc id="desc">Institutional mark for Sabancı University</desc>
+  <rect width="64" height="64" rx="12" fill="#17365d"/>
+  <path d="M17 21c8-7 22-7 30 0l-4 5c-6-4-16-4-22 0zm4 10c6-4 14-4 20 0l-4 5c-4-2-8-2-12 0zm4 10c3-2 7-2 10 0l-5 7z" fill="#e84a3b"/>
+  <text x="78" y="28" fill="#17365d" font-family="Arial,sans-serif" font-size="14" font-weight="700">SABANCI</text>
+  <text x="78" y="46" fill="#4b4b4b" font-family="Arial,sans-serif" font-size="14">UNIVERSITY</text>
+</svg>

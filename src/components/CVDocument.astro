@@ -109,7 +109,19 @@ const evidenceRows =
           content.education.map((experience) => (
             <li class="timeline-item">
               <div class="timeline-title">
-                <h3>{experience.organization}</h3>
+                <div class="institution-heading">
+                  {experience.logo && (
+                    <img
+                      class="institution-logo"
+                      src={experience.logo}
+                      alt={experience.logoAlt ?? `${experience.organization} logo`}
+                      width="48"
+                      height="48"
+                      loading="lazy"
+                    />
+                  )}
+                  <h3>{experience.organization}</h3>
+                </div>
                 <span class="timeline-period">{experience.period}</span>
               </div>
               <p class="timeline-role">
@@ -243,6 +255,18 @@ const evidenceRows =
         }
       </div>
       <p class="skills-context">{content.cv.skillsContext}</p>
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2 class="cv-section-title">{locale === "it" ? "Lingue" : "Languages"}</h2>
+    <div class="cv-section-content languages-list">
+      {content.languages.map((language) => (
+        <div class="language-item">
+          <strong>{language.name}</strong>
+          <span>{language.level}</span>
+        </div>
+      ))}
     </div>
   </section>
 

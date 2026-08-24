@@ -17,6 +17,8 @@ export interface Experience {
   role: string;
   period: string;
   location?: string;
+  logo?: string;
+  logoAlt?: string;
   summary: string;
   details?: string[];
   relatedProject?: {
@@ -168,6 +170,7 @@ export interface ProfileContent {
   education: Experience[];
   leadership: Experience[];
   skillGroups: SkillGroup[];
+  languages: Array<{ name: string; level: string }>;
 }
 
 const links = {
@@ -232,7 +235,7 @@ export const profiles: Record<Locale, ProfileContent> = {
     meta: {
       homeTitle: "Infrastructure Security Portfolio",
       homeDescription:
-        "Portfolio of Edoardo Balzano, Computer Science graduate and MSc Cybersecurity student focused on infrastructure security, Docker and networking.",
+        "Portfolio of Edoardo Balzano, Computer Science graduate from the University of Turin and MSc Cybersecurity student at Politecnico di Torino, focused on infrastructure security, Docker and networking.",
       cvTitle: "About & CV",
       cvDescription:
         "Recruiter-oriented CV for Edoardo Balzano: cybersecurity education, infrastructure projects, hands-on security practice and operational leadership.",
@@ -250,7 +253,7 @@ export const profiles: Record<Locale, ProfileContent> = {
       kicker: "Computer Science × Infrastructure Security",
       title: "I build, break, and operate systems to understand how to secure them.",
       introduction:
-        "I’m Edoardo Balzano, a University of Turin Computer Science graduate and current MSc Cybersecurity student. My work sits where Linux, containers, networks, and practical attack/defense meet.",
+        "I’m Edoardo Balzano, a University of Turin Computer Science graduate and MSc Cybersecurity student at Politecnico di Torino. My work sits where Linux, containers, networks, and practical attack/defense meet.",
       availability:
         "Currently in Turin, completing my MSc in Cybersecurity · Open to security and infrastructure opportunities",
       primaryAction: "Explore my work",
@@ -514,12 +517,12 @@ export const profiles: Record<Locale, ProfileContent> = {
       eyebrow: "Profile / CV",
       title: "Edoardo Balzano",
       intro:
-        "Computer Science graduate and MSc Cybersecurity student building toward infrastructure, container, and cloud security.",
-      location: "Turin, Italy · MSc Cybersecurity at the University of Turin",
+        "Junior Security Engineer focused on Linux, containerized infrastructure and network security, with hands-on experience building security tooling, operating self-hosted services and analyzing attack traffic.",
+      location: "Turin, Italy · MSc Cybersecurity at Politecnico di Torino",
       print: "Print / Save as PDF",
       profileTitle: "Professional profile",
       profile:
-        "I learn security by operating real systems and examining how they fail. My strongest evidence sits across Linux, containerized services, network traffic, and practical attack/defense: from a distributed CTF analysis tool to a Raspberry Pi homelab and ongoing HTB practice. Hospitality management adds day-to-day ownership, calm under pressure, and clear communication.",
+        "I learn security by putting my hands on systems and examining how they fail. My strongest evidence sits across Linux, containerized services, network traffic, and practical attack/defense: from a distributed CTF analysis tool to a Raspberry Pi homelab, security automation and ongoing HTB practice. I work confidently in English (C1) and am currently learning French.",
       educationTitle: "Education & international experience",
       projectsTitle: "Selected security projects",
       practiceTitle: "Security practice & credential",
@@ -530,7 +533,7 @@ export const profiles: Record<Locale, ProfileContent> = {
       skillsTitle: "Skills",
       skillsToolsLabel: "Tools",
       skillsContext:
-        "Project exposure: AWS, Google Cloud Platform, Firebase. Current direction: container and cloud security.",
+        "Current direction: container, infrastructure and network security. Evidence comes from self-hosted Linux services, Docker networking, traffic analysis and security tooling.",
       contactTitle: "Contact",
       evidenceTitle: "Evidence map",
       evidenceIntro:
@@ -542,20 +545,24 @@ export const profiles: Record<Locale, ProfileContent> = {
     },
     education: [
       {
-        organization: "University of Turin",
+        organization: "Politecnico di Torino",
         role: "MSc Cybersecurity",
         period: "Current",
         location: "Turin, Italy",
+        logo: "/media/polito-logo.svg",
+        logoAlt: "Politecnico di Torino logo",
         summary:
-          "Advanced study in cybersecurity with a direction toward container, cloud, and infrastructure security.",
+          "Advanced study in cybersecurity with a direction toward infrastructure, container and network security.",
       },
       {
         organization: "Sabancı University",
         role: "Erasmus exchange",
-        period: "Academic year 2025/26",
+        period: "One academic year · 2025/26",
         location: "Istanbul, Türkiye",
+        logo: "/media/sabanci-logo.svg",
+        logoAlt: "Sabancı University logo",
         summary:
-          "International study experience demonstrating independence, adaptability, English communication, and cross-cultural teamwork.",
+          "One-year international study experience demonstrating independence, adaptability, English communication, and cross-cultural teamwork.",
         relatedProject: {
           name: "AquaSecure · coursework collaboration",
           summary:
@@ -568,6 +575,8 @@ export const profiles: Record<Locale, ProfileContent> = {
         role: "BSc Computer Science",
         period: "Completed 2024",
         location: "Turin, Italy",
+        logo: "/media/unito-logo.svg",
+        logoAlt: "University of Turin logo",
         summary:
           "Foundations in networks, operating systems, software development, and security. Thesis project: CTF Hammer.",
       },
@@ -629,13 +638,17 @@ export const profiles: Record<Locale, ProfileContent> = {
         ],
       },
     ],
+    languages: [
+      { name: "English", level: "C1" },
+      { name: "French", level: "Currently learning" },
+    ],
   },
   it: {
     locale: "it",
     meta: {
       homeTitle: "Portfolio di sicurezza infrastrutturale",
       homeDescription:
-        "Portfolio di Edoardo Balzano, laureato in Informatica e studente magistrale in Cybersecurity, con focus su infrastrutture, Docker e reti.",
+        "Portfolio di Edoardo Balzano, laureato in Informatica all’Università di Torino e studente magistrale in Cybersecurity al Politecnico di Torino, con focus su infrastrutture, Docker e reti.",
       cvTitle: "Profilo e CV",
       cvDescription:
         "CV di Edoardo Balzano: formazione in cybersecurity, progetti infrastrutturali, pratica tecnica e responsabilità operative.",
@@ -653,7 +666,7 @@ export const profiles: Record<Locale, ProfileContent> = {
       kicker: "Informatica × Sicurezza infrastrutturale",
       title: "Costruisco, attacco e gestisco sistemi per capire come proteggerli.",
       introduction:
-        "Sono Edoardo Balzano, laureato in Informatica all’Università di Torino e studente magistrale in Cybersecurity. Lavoro nel punto d’incontro tra Linux, container, reti e pratica Attack/Defense.",
+        "Sono Edoardo Balzano, laureato in Informatica all’Università di Torino e studente magistrale in Cybersecurity al Politecnico di Torino. Lavoro nel punto d’incontro tra Linux, container, reti e pratica Attack/Defense.",
       availability:
         "Attualmente a Torino, sto completando la laurea magistrale in Cybersecurity · Aperto a opportunità in sicurezza e infrastrutture",
       primaryAction: "Esplora i progetti",
@@ -917,12 +930,12 @@ export const profiles: Record<Locale, ProfileContent> = {
       eyebrow: "Profilo / CV",
       title: "Edoardo Balzano",
       intro:
-        "Laureato in Informatica e studente magistrale in Cybersecurity, orientato alla sicurezza di infrastrutture, container e cloud.",
-      location: "Torino, Italia · Laurea magistrale in Cybersecurity all’Università di Torino",
+        "Junior Security Engineer focalizzato su Linux, infrastrutture containerizzate e sicurezza di rete, con esperienza pratica nello sviluppo di tooling, nella gestione di servizi self-hosted e nell’analisi del traffico d’attacco.",
+      location: "Torino, Italia · Laurea magistrale in Cybersecurity al Politecnico di Torino",
       print: "Stampa / Salva come PDF",
       profileTitle: "Profilo professionale",
       profile:
-        "Studio la sicurezza gestendo sistemi reali e osservando come falliscono. Le mie evidenze principali attraversano Linux, servizi containerizzati, traffico di rete e pratica Attack/Defense: da uno strumento distribuito per le CTF a un homelab Raspberry Pi e alla pratica continua su HTB. La gestione di sala aggiunge responsabilità quotidiana, lucidità sotto pressione e comunicazione chiara.",
+        "Studio la sicurezza mettendo le mani sui sistemi e osservando come falliscono. Le mie evidenze principali attraversano Linux, servizi containerizzati, traffico di rete e pratica Attack/Defense: da uno strumento distribuito per le CTF a un homelab Raspberry Pi, tooling di sicurezza e pratica continua su HTB. Lavoro bene in inglese (C1) e sto imparando il francese.",
       educationTitle: "Formazione ed esperienza internazionale",
       projectsTitle: "Progetti di sicurezza selezionati",
       practiceTitle: "Pratica e credenziale",
@@ -933,7 +946,7 @@ export const profiles: Record<Locale, ProfileContent> = {
       skillsTitle: "Competenze",
       skillsToolsLabel: "Strumenti",
       skillsContext:
-        "Esposizione progettuale: AWS, Google Cloud Platform, Firebase. Direzione attuale: sicurezza di container e cloud.",
+        "Direzione attuale: sicurezza di container, infrastrutture e reti. Le evidenze arrivano da servizi Linux self-hosted, networking Docker, analisi del traffico e tooling di sicurezza.",
       contactTitle: "Contatti",
       evidenceTitle: "Mappa delle evidenze",
       evidenceIntro:
@@ -945,20 +958,24 @@ export const profiles: Record<Locale, ProfileContent> = {
     },
     education: [
       {
-        organization: "Università di Torino",
+        organization: "Politecnico di Torino",
         role: "Laurea magistrale in Cybersecurity",
         period: "In corso",
         location: "Torino, Italia",
+        logo: "/media/polito-logo.svg",
+        logoAlt: "Logo del Politecnico di Torino",
         summary:
-          "Formazione avanzata in cybersecurity, con direzione verso sicurezza di container, cloud e infrastrutture.",
+          "Formazione avanzata in cybersecurity, con direzione verso sicurezza di container, infrastrutture e reti.",
       },
       {
         organization: "Sabancı University",
         role: "Scambio Erasmus",
-        period: "Anno accademico 2025/26",
+        period: "Un anno accademico · 2025/26",
         location: "Istanbul, Türkiye",
+        logo: "/media/sabanci-logo.svg",
+        logoAlt: "Logo di Sabancı University",
         summary:
-          "Esperienza internazionale che dimostra indipendenza, adattabilità, comunicazione in inglese e collaborazione interculturale.",
+          "Esperienza internazionale di un anno che dimostra indipendenza, adattabilità, comunicazione in inglese e collaborazione interculturale.",
         relatedProject: {
           name: "AquaSecure · progetto accademico collaborativo",
           summary:
@@ -971,6 +988,8 @@ export const profiles: Record<Locale, ProfileContent> = {
         role: "Laurea triennale in Informatica",
         period: "Completata nel 2024",
         location: "Torino, Italia",
+        logo: "/media/unito-logo.svg",
+        logoAlt: "Logo dell’Università degli Studi di Torino",
         summary:
           "Basi in reti, sistemi operativi, sviluppo software e sicurezza. Progetto di tesi: CTF Hammer.",
       },
@@ -1031,6 +1050,10 @@ export const profiles: Record<Locale, ProfileContent> = {
           "WebSockets",
         ],
       },
+    ],
+    languages: [
+      { name: "Inglese", level: "C1" },
+      { name: "Francese", level: "In apprendimento" },
     ],
   },
 };

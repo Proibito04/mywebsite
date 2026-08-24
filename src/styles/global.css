@@ -1572,6 +1572,22 @@ code {
   font-size: 1.3rem;
 }
 
+.institution-heading {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 0.75rem;
+}
+
+.institution-logo {
+  flex: 0 0 auto;
+  width: 2.75rem;
+  height: 2.75rem;
+  object-fit: contain;
+  border-radius: 0.25rem;
+  background: var(--surface);
+}
+
 .timeline-period {
   flex: 0 0 auto;
   color: var(--subtle);
@@ -1791,6 +1807,29 @@ code {
   margin: 0.85rem 0 0;
   color: var(--subtle);
   font-size: 0.72rem;
+}
+
+.languages-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.language-item {
+  display: flex;
+  align-items: baseline;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.25rem;
+  background: var(--page-soft);
+  gap: 0.75rem;
+}
+
+.language-item span {
+  color: var(--cyan);
+  font-family: "Fira Code", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
 }
 
 .skill-group-note {
@@ -2529,6 +2568,15 @@ code {
     font-size: 7.7pt;
   }
 
+  .institution-logo {
+    width: 9mm;
+    height: 9mm;
+  }
+
+  .institution-heading {
+    gap: 2mm;
+  }
+
   .timeline-item > p:last-of-type,
   .cv-project p,
   .practice-card p,
@@ -2619,6 +2667,19 @@ code {
     line-height: 1.35;
   }
 
+  .languages-list {
+    gap: 2mm;
+  }
+
+  .language-item {
+    padding: 2mm 2.5mm;
+    gap: 2mm;
+  }
+
+  .language-item span {
+    font-size: 6.8pt;
+  }
+
   .contact-grid {
     gap: 2mm 6mm;
     font-size: 8.2pt;
@@ -2629,7 +2690,8 @@ code {
   .practice-card,
   .leadership-item,
   .skill-group,
-  .contact-grid {
+  .contact-grid,
+  .language-item {
     break-inside: avoid;
   }
 
