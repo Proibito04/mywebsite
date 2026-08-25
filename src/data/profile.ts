@@ -160,6 +160,7 @@ export interface ProfileContent {
     skillsToolsLabel: string;
     skillsContext: string;
     contactTitle: string;
+    privacyConsent: string;
     evidenceTitle: string;
     evidenceIntro: string;
     projectLabels: {
@@ -535,6 +536,8 @@ export const profiles: Record<Locale, ProfileContent> = {
       skillsContext:
         "Current direction: container, infrastructure and network security. Evidence comes from self-hosted Linux services, Docker networking, traffic analysis and security tooling.",
       contactTitle: "Contact",
+      privacyConsent:
+        "I consent to the processing of my personal data in accordance with Regulation (EU) 2016/679 (GDPR) and applicable law.",
       evidenceTitle: "Evidence map",
       evidenceIntro:
         "Skills are useful only when they connect to work. This map shows where each focus area is visible.",
@@ -549,7 +552,7 @@ export const profiles: Record<Locale, ProfileContent> = {
         role: "MSc Cybersecurity",
         period: "Current",
         location: "Turin, Italy",
-        logo: "/media/polito-logo.jpg",
+        logo: "/media/polito-logo.png",
         logoAlt: "Politecnico di Torino logo",
         summary:
           "Advanced study in cybersecurity with a direction toward infrastructure, container and network security.",
@@ -954,6 +957,8 @@ export const profiles: Record<Locale, ProfileContent> = {
       skillsContext:
         "Direzione attuale: sicurezza di container, infrastrutture e reti. Le evidenze arrivano da servizi Linux self-hosted, networking Docker, analisi del traffico e tooling di sicurezza.",
       contactTitle: "Contatti",
+      privacyConsent:
+        "Autorizzo il trattamento dei miei dati personali ai sensi del Regolamento (UE) 2016/679 (GDPR) e della normativa vigente.",
       evidenceTitle: "Mappa delle evidenze",
       evidenceIntro:
         "Le competenze contano quando sono collegate al lavoro svolto. Questa mappa mostra dove è visibile ogni area.",
@@ -968,7 +973,7 @@ export const profiles: Record<Locale, ProfileContent> = {
         role: "Laurea magistrale in Cybersecurity",
         period: "In corso",
         location: "Torino, Italia",
-        logo: "/media/polito-logo.jpg",
+        logo: "/media/polito-logo.png",
         logoAlt: "Logo del Politecnico di Torino",
         summary:
           "Formazione avanzata in cybersecurity, con direzione verso sicurezza di container, infrastrutture e reti.",

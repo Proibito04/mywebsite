@@ -1890,6 +1890,14 @@ code {
   font-weight: 700;
 }
 
+.cv-privacy-consent {
+  margin: 0;
+  padding: 0 clamp(1.5rem, 4vw, 3.5rem) 2rem;
+  color: var(--subtle);
+  font-size: 0.68rem;
+  font-style: italic;
+}
+
 /* Notes and writeups retain their original language and content. */
 .content-shell {
   width: min(100% - 2rem, 980px);
@@ -2428,7 +2436,7 @@ code {
 @media print {
   @page {
     size: A4;
-    margin: 11mm 13mm;
+    margin: 8mm 10mm;
   }
 
   :root,
@@ -2473,7 +2481,7 @@ code {
   }
 
   .cv-hero {
-    padding: 0 0 5mm;
+    padding: 0 0 3mm;
     border-bottom: 0.35mm solid var(--accent);
     break-after: avoid-page;
   }
@@ -2529,7 +2537,7 @@ code {
 
   .cv-section {
     grid-template-columns: 30mm minmax(0, 1fr);
-    padding: 4.2mm 0;
+    padding: 2.8mm 0;
     break-inside: auto;
     gap: 7mm;
   }
@@ -2547,7 +2555,7 @@ code {
   }
 
   .timeline {
-    gap: 3.8mm;
+    gap: 2.6mm;
   }
 
   .timeline-title h3,
@@ -2586,8 +2594,8 @@ code {
   }
 
   .nested-project {
-    margin-top: 2.2mm;
-    padding: 2.5mm 3mm;
+    margin-top: 1.5mm;
+    padding: 1.8mm 2.2mm;
   }
 
   .nested-project p {
@@ -2596,13 +2604,13 @@ code {
   }
 
   .cv-project-list {
-    gap: 3mm;
+    gap: 2mm;
   }
 
   .cv-project {
     grid-template-columns: 7mm minmax(0, 1fr);
-    padding-bottom: 3mm;
-    gap: 2.5mm;
+    padding-bottom: 2mm;
+    gap: 2mm;
   }
 
   .cv-project a {
@@ -2613,16 +2621,16 @@ code {
   .leadership-item,
   .skill-group,
   .evidence-row {
-    padding: 2.8mm;
+    padding: 2mm;
   }
 
   .leadership-list,
   .skills-grid {
-    gap: 3mm;
+    gap: 2mm;
   }
 
   .practice-links {
-    margin-top: 2.5mm;
+    margin-top: 1.5mm;
     gap: 1.5mm;
   }
 
@@ -2683,6 +2691,12 @@ code {
   .contact-grid {
     gap: 2mm 6mm;
     font-size: 8.2pt;
+  }
+
+  .cv-privacy-consent {
+    padding: 0 0 3mm;
+    font-size: 6.8pt;
+    line-height: 1.35;
   }
 
   .timeline-item,
