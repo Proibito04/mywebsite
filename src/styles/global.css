@@ -2480,8 +2480,8 @@ code {
   body {
     background: #fff !important;
     color: #111;
-    font-size: 8.6pt;
-    line-height: 1.35;
+    font-size: 9pt;
+    line-height: 1.42;
     text-rendering: optimizeLegibility;
   }
 
@@ -2503,20 +2503,20 @@ code {
   }
 
   .cv-hero {
-    padding: 0 0 2.5mm;
+    padding: 0 0 3.5mm;
     border-bottom: 0.35mm solid var(--accent);
     break-after: avoid-page;
   }
 
   .cv-head {
-    grid-template-columns: minmax(0, 1fr) 23mm;
+    grid-template-columns: minmax(0, 1fr) 25mm;
     align-items: center;
-    gap: 5mm;
+    gap: 6mm;
     break-inside: avoid;
   }
 
   .cv-head h1 {
-    font-size: 25pt;
+    font-size: 27pt;
     line-height: 0.96;
     letter-spacing: -0.025em;
   }
@@ -2526,7 +2526,7 @@ code {
   }
 
   .cv-portrait {
-    width: 23mm;
+    width: 25mm;
     border-width: 0.25mm;
     border-radius: 1.5mm;
     box-shadow: none;
@@ -2538,14 +2538,14 @@ code {
 
   .cv-deck {
     max-width: none;
-    margin-top: 2mm;
-    font-size: 8.7pt;
-    line-height: 1.3;
+    margin-top: 2.5mm;
+    font-size: 9.2pt;
+    line-height: 1.36;
   }
 
   .cv-location {
-    margin-top: 1.5mm;
-    font-size: 6.7pt;
+    margin-top: 2mm;
+    font-size: 7pt;
     letter-spacing: 0.01em;
   }
 
@@ -2563,7 +2563,7 @@ code {
   .cv-section {
     display: block;
     min-width: 0;
-    padding: 2mm 0;
+    padding: 2.7mm 0;
     break-inside: avoid;
   }
 
@@ -2589,75 +2589,75 @@ code {
   }
 
   .cv-section-title {
-    margin-bottom: 1.4mm;
-    font-size: 6.5pt;
+    margin-bottom: 1.8mm;
+    font-size: 7pt;
     line-height: 1.4;
     letter-spacing: 0.08em;
     break-after: avoid;
   }
 
   .cv-profile-copy {
-    font-size: 8.2pt;
-    line-height: 1.35;
+    font-size: 8.8pt;
+    line-height: 1.42;
   }
 
   .timeline {
-    gap: 1.6mm;
+    gap: 2.2mm;
   }
 
   .timeline-title h3,
   .cv-project h3,
   .practice-card h3,
   .leadership-item h3 {
-    font-size: 8.7pt;
-    line-height: 1.08;
+    font-size: 9.7pt;
+    line-height: 1.12;
   }
 
   .timeline-period,
   .leadership-item .period {
-    font-size: 6.1pt;
+    font-size: 6.6pt;
   }
 
   .timeline-role,
   .leadership-item .role {
-    font-size: 6.9pt;
+    font-size: 7.4pt;
   }
 
   .institution-logo {
-    width: 13mm;
-    height: 6mm;
+    width: 15mm;
+    height: 7mm;
   }
 
   .institution-heading {
-    gap: 1.2mm;
+    gap: 1.5mm;
   }
 
   .timeline-item > p:last-of-type,
   .cv-project p,
   .practice-card p,
   .leadership-item > p:not(.role, .period) {
-    font-size: 7.4pt;
-    line-height: 1.3;
+    font-size: 8pt;
+    line-height: 1.38;
   }
 
   .nested-project {
-    margin-top: 1mm;
-    padding: 1.2mm 1.5mm;
+    margin-top: 1.5mm;
+    padding: 1.8mm 2mm;
   }
 
   .nested-project p {
-    font-size: 6.8pt;
-    line-height: 1.3;
+    font-size: 7.4pt;
+    line-height: 1.36;
   }
 
   .cv-project-list {
-    gap: 1.4mm;
+    gap: 2mm;
   }
 
   .cv-project {
     grid-template-columns: 5mm minmax(0, 1fr);
-    padding-bottom: 1.4mm;
-    gap: 1mm;
+    padding-bottom: 2mm;
+    gap: 1.5mm;
   }
 
   .cv-project a {
@@ -2672,13 +2672,13 @@ code {
   .leadership-item,
   .skill-group,
   .evidence-row {
-    padding: 1.5mm;
+    padding: 2mm;
   }
 
   .leadership-list,
   .skills-grid {
     grid-template-columns: 1fr;
-    gap: 1.4mm;
+    gap: 2mm;
   }
 
   .practice-links {
@@ -2706,56 +2706,56 @@ code {
   }
 
   .skill-group h3 {
-    margin-bottom: 0.6mm;
-    font-size: 7.5pt;
+    margin-bottom: 1mm;
+    font-size: 8pt;
   }
 
   .skill-summary {
-    font-size: 7.1pt;
-    line-height: 1.28;
+    font-size: 7.7pt;
+    line-height: 1.35;
   }
 
   .skill-tools {
-    margin-top: 0.9mm;
-    font-size: 6.2pt;
-    line-height: 1.3;
+    margin-top: 1.4mm;
+    font-size: 6.5pt;
+    line-height: 1.38;
   }
 
   .skills-context {
-    margin-top: 1.2mm;
-    font-size: 6.2pt;
-    line-height: 1.3;
+    margin-top: 1.8mm;
+    font-size: 6.7pt;
+    line-height: 1.35;
   }
 
   .languages-list {
-    gap: 1.3mm;
+    gap: 1.8mm;
   }
 
   .language-item {
-    padding: 1.5mm 2mm;
-    gap: 1.5mm;
-    font-size: 7.2pt;
+    padding: 2mm 2.5mm;
+    gap: 2mm;
+    font-size: 8pt;
   }
 
   .language-item span {
-    font-size: 6.1pt;
+    font-size: 6.7pt;
   }
 
   .contact-grid {
-    gap: 1.2mm 4mm;
-    font-size: 7.2pt;
+    gap: 1.8mm 5mm;
+    font-size: 8pt;
   }
 
   .cv-practice-line {
-    gap: 0.3rem;
-    font-size: 6.2pt;
-    line-height: 1.25;
+    gap: 0.4rem;
+    font-size: 6.7pt;
+    line-height: 1.3;
   }
 
   .cv-privacy-consent {
-    padding: 1mm 0 0;
-    font-size: 6pt;
-    line-height: 1.25;
+    padding: 1.5mm 0 0;
+    font-size: 6.6pt;
+    line-height: 1.32;
   }
 
   .timeline-item,
