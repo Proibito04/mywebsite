@@ -549,7 +549,7 @@ export const profiles: Record<Locale, ProfileContent> = {
         role: "MSc Cybersecurity",
         period: "Current",
         location: "Turin, Italy",
-        logo: "/media/polito-logo.svg",
+        logo: "/media/polito-logo.jpg",
         logoAlt: "Politecnico di Torino logo",
         summary:
           "Advanced study in cybersecurity with a direction toward infrastructure, container and network security.",
@@ -559,7 +559,7 @@ export const profiles: Record<Locale, ProfileContent> = {
         role: "Erasmus exchange",
         period: "One academic year · 2025/26",
         location: "Istanbul, Türkiye",
-        logo: "/media/sabanci-logo.svg",
+        logo: "/media/sabanci-logo.jpg",
         logoAlt: "Sabancı University logo",
         summary:
           "One-year international study experience demonstrating independence, adaptability, English communication, and cross-cultural teamwork.",
@@ -575,10 +575,16 @@ export const profiles: Record<Locale, ProfileContent> = {
         role: "BSc Computer Science",
         period: "Completed 2024",
         location: "Turin, Italy",
-        logo: "/media/unito-logo.svg",
+        logo: "https://cdn.unito.it/unito-loghi/logo_sigillo_orizzontale.svg",
         logoAlt: "University of Turin logo",
         summary:
           "Foundations in networks, operating systems, software development, and security. Thesis project: CTF Hammer.",
+        relatedProject: {
+          name: "CyberChallenge.IT Finalist · 8th Edition, 2024",
+          summary:
+            "Represented the University of Turin after hands-on training in web, binary, crypto, network and Attack/Defense security challenges.",
+          href: "/media/cyberchallenge-2024-edoardo-balzano.pdf",
+        },
       },
     ],
     leadership: [
@@ -962,7 +968,7 @@ export const profiles: Record<Locale, ProfileContent> = {
         role: "Laurea magistrale in Cybersecurity",
         period: "In corso",
         location: "Torino, Italia",
-        logo: "/media/polito-logo.svg",
+        logo: "/media/polito-logo.jpg",
         logoAlt: "Logo del Politecnico di Torino",
         summary:
           "Formazione avanzata in cybersecurity, con direzione verso sicurezza di container, infrastrutture e reti.",
@@ -972,7 +978,7 @@ export const profiles: Record<Locale, ProfileContent> = {
         role: "Scambio Erasmus",
         period: "Un anno accademico · 2025/26",
         location: "Istanbul, Türkiye",
-        logo: "/media/sabanci-logo.svg",
+        logo: "/media/sabanci-logo.jpg",
         logoAlt: "Logo di Sabancı University",
         summary:
           "Esperienza internazionale di un anno che dimostra indipendenza, adattabilità, comunicazione in inglese e collaborazione interculturale.",
@@ -988,10 +994,16 @@ export const profiles: Record<Locale, ProfileContent> = {
         role: "Laurea triennale in Informatica",
         period: "Completata nel 2024",
         location: "Torino, Italia",
-        logo: "/media/unito-logo.svg",
+        logo: "https://cdn.unito.it/unito-loghi/logo_sigillo_orizzontale.svg",
         logoAlt: "Logo dell’Università degli Studi di Torino",
         summary:
           "Basi in reti, sistemi operativi, sviluppo software e sicurezza. Progetto di tesi: CTF Hammer.",
+        relatedProject: {
+          name: "Finalista CyberChallenge.IT · 8ª Edizione, 2024",
+          summary:
+            "Ho rappresentato l’Università di Torino dopo attività pratiche su web, binary, crypto, network e challenge Attack/Defense.",
+          href: "/media/cyberchallenge-2024-edoardo-balzano.pdf",
+        },
       },
     ],
     leadership: [

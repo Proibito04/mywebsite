@@ -1581,10 +1581,10 @@ code {
 
 .institution-logo {
   flex: 0 0 auto;
-  width: 2.75rem;
+  width: 6.5rem;
   height: 2.75rem;
   object-fit: contain;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
   background: var(--surface);
 }
 
@@ -2569,7 +2569,7 @@ code {
   }
 
   .institution-logo {
-    width: 9mm;
+    width: 18mm;
     height: 9mm;
   }
 

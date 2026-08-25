@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" role="img" aria-labelledby="title desc">
-  <title id="title">Politecnico di Torino</title>
-  <desc id="desc">Institutional mark for Politecnico di Torino</desc>
-  <rect width="64" height="64" rx="12" fill="#005b82"/>
-  <path d="M18 16h28v8H27v8h15v8H27v8h19v8H18z" fill="#fff"/>
-  <text x="78" y="28" fill="#005b82" font-family="Arial,sans-serif" font-size="14" font-weight="700">POLITECNICO</text>
-  <text x="78" y="46" fill="#253746" font-family="Arial,sans-serif" font-size="14">DI TORINO</text>
-</svg>
