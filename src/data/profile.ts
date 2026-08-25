@@ -151,10 +151,6 @@ export interface ProfileContent {
     profile: string;
     educationTitle: string;
     projectsTitle: string;
-    practiceTitle: string;
-    credentialPdfLabel: string;
-    credentialHtbLabel: string;
-    credentialWriteupsLabel: string;
     leadershipTitle: string;
     skillsTitle: string;
     skillsToolsLabel: string;
@@ -433,7 +429,8 @@ export const profiles: Record<Locale, ProfileContent> = {
         status: "Flagship · BSc thesis",
         title: "CTF Hammer",
         role: "Individual project",
-        summary: "A unified A/D CTF traffic-analysis workflow.",
+        summary:
+          "A unified A/D CTF traffic-analysis workflow using tshark, async workers and a live web interface.",
         detail:
           "CTF Hammer collects PCAP traffic from vulnerable hosts, parses conversations with tshark, classifies useful patterns, and streams results into a web interface. Async workers keep analysis away from the operator path; SSH/SCP and Docker Compose connect the pieces.",
         stack: [
@@ -459,7 +456,8 @@ export const profiles: Record<Locale, ProfileContent> = {
         status: "Supporting security project",
         title: "Smart HTA & JAR analyzer",
         role: "Python tooling",
-        summary: "Static features first; model-assisted context second.",
+        summary:
+          "A Python analyzer for HTA/JAR feature extraction, explainable heuristics and model-assisted context.",
         detail:
           "A modular pipeline extracts features from HTA and JAR files, applies explainable heuristic rules, and can ask language models for a second assessment. CLI entry points and functional tests make each stage inspectable.",
         stack: ["Python", "BeautifulSoup", "javap", "Heuristics", "LLM APIs", "Tests"],
@@ -471,7 +469,8 @@ export const profiles: Record<Locale, ProfileContent> = {
         status: "Sabancı coursework · Collaboration",
         title: "AquaSecure",
         role: "Academic team project",
-        summary: "A simulated water-treatment SCADA security exercise.",
+        summary:
+          "A simulated water-treatment SCADA security exercise with Docker isolation and an SQLi → SSRF → Modbus write chain.",
         detail:
           "The team isolated services with Docker networks and modeled an attack chain from SQL injection to SSRF and an unauthorized Modbus write. It demonstrates applying security concepts to an OT/ICS-shaped environment—not professional industrial-security expertise.",
         stack: ["Docker networks", "SCADA simulation", "SQL injection", "SSRF", "Modbus"],
@@ -526,10 +525,6 @@ export const profiles: Record<Locale, ProfileContent> = {
         "I learn security by putting my hands on systems and examining how they fail. My strongest evidence sits across Linux, containerized services, network traffic, and practical attack/defense: from a distributed CTF analysis tool to a Raspberry Pi homelab, security automation and ongoing HTB practice. I work confidently in English (C1) and am currently learning French.",
       educationTitle: "Education & international experience",
       projectsTitle: "Selected security projects",
-      practiceTitle: "Security practice & credential",
-      credentialPdfLabel: "Certificate PDF",
-      credentialHtbLabel: "Hack The Box",
-      credentialWriteupsLabel: "Technical writeups",
       leadershipTitle: "Leadership & operations",
       skillsTitle: "Skills",
       skillsToolsLabel: "Tools",
@@ -565,13 +560,7 @@ export const profiles: Record<Locale, ProfileContent> = {
         logo: "/media/sabanci-logo.jpg",
         logoAlt: "Sabancı University logo",
         summary:
-          "One-year international study experience demonstrating independence, adaptability, English communication, and cross-cultural teamwork.",
-        relatedProject: {
-          name: "AquaSecure · coursework collaboration",
-          summary:
-            "Simulated water-treatment SCADA environment with Docker network isolation and an SQLi → SSRF → unauthorized Modbus write attack chain.",
-          href: links.aquaSecure,
-        },
+          "One-year international study experience demonstrating independence, adaptability, English communication, and cross-cultural teamwork. Coursework included OT/ICS security and the AquaSecure collaborative project.",
       },
       {
         organization: "University of Turin",
@@ -854,7 +843,8 @@ export const profiles: Record<Locale, ProfileContent> = {
         status: "Progetto principale · Tesi triennale",
         title: "CTF Hammer",
         role: "Progetto individuale",
-        summary: "Un flusso unificato per analizzare il traffico nelle CTF A/D.",
+        summary:
+          "Un flusso unificato per analizzare il traffico nelle CTF A/D con tshark, worker asincroni e un’interfaccia web live.",
         detail:
           "CTF Hammer raccoglie PCAP dagli host vulnerabili, ricostruisce le conversazioni con tshark, classifica pattern utili e invia i risultati in tempo reale all’interfaccia web. Worker asincroni separano l’analisi dal percorso dell’operatore; SSH/SCP e Docker Compose collegano i componenti.",
         stack: [
@@ -880,7 +870,8 @@ export const profiles: Record<Locale, ProfileContent> = {
         status: "Progetto di sicurezza",
         title: "Smart HTA & JAR analyzer",
         role: "Tooling Python",
-        summary: "Prima feature statiche, poi contesto assistito da modelli.",
+        summary:
+          "Un analizzatore Python per estrarre feature da HTA/JAR, applicare euristiche spiegabili e aggiungere contesto assistito da modelli.",
         detail:
           "Una pipeline modulare estrae feature da file HTA e JAR, applica regole euristiche spiegabili e può richiedere una seconda valutazione a modelli linguistici. Comandi CLI e test funzionali rendono ogni passaggio ispezionabile.",
         stack: ["Python", "BeautifulSoup", "javap", "Euristiche", "API LLM", "Test"],
@@ -892,7 +883,8 @@ export const profiles: Record<Locale, ProfileContent> = {
         status: "Corso Sabancı · Collaborazione",
         title: "AquaSecure",
         role: "Progetto accademico di gruppo",
-        summary: "Esercizio di sicurezza su uno SCADA simulato per il trattamento dell’acqua.",
+        summary:
+          "Esercizio di sicurezza su uno SCADA simulato per il trattamento dell’acqua, con isolamento Docker e catena SQLi → SSRF → scrittura Modbus.",
         detail:
           "Il team ha isolato i servizi con reti Docker e modellato una catena da SQL injection a SSRF e scrittura Modbus non autorizzata. Dimostra l’applicazione di concetti di sicurezza in un contesto OT/ICS simulato, non esperienza professionale di sicurezza industriale.",
         stack: ["Reti Docker", "SCADA simulato", "SQL injection", "SSRF", "Modbus"],
@@ -947,10 +939,6 @@ export const profiles: Record<Locale, ProfileContent> = {
         "Studio la sicurezza mettendo le mani sui sistemi e osservando come falliscono. Le mie evidenze principali attraversano Linux, servizi containerizzati, traffico di rete e pratica Attack/Defense: da uno strumento distribuito per le CTF a un homelab Raspberry Pi, tooling di sicurezza e pratica continua su HTB. Lavoro bene in inglese (C1) e sto imparando il francese.",
       educationTitle: "Formazione ed esperienza internazionale",
       projectsTitle: "Progetti di sicurezza selezionati",
-      practiceTitle: "Pratica e credenziale",
-      credentialPdfLabel: "Certificato PDF",
-      credentialHtbLabel: "Hack The Box",
-      credentialWriteupsLabel: "Writeup tecnici",
       leadershipTitle: "Leadership e operazioni",
       skillsTitle: "Competenze",
       skillsToolsLabel: "Strumenti",
@@ -986,13 +974,7 @@ export const profiles: Record<Locale, ProfileContent> = {
         logo: "/media/sabanci-logo.jpg",
         logoAlt: "Logo di Sabancı University",
         summary:
-          "Esperienza internazionale di un anno che dimostra indipendenza, adattabilità, comunicazione in inglese e collaborazione interculturale.",
-        relatedProject: {
-          name: "AquaSecure · progetto accademico collaborativo",
-          summary:
-            "Ambiente SCADA simulato per il trattamento dell’acqua, con isolamento delle reti Docker e catena SQLi → SSRF → scrittura Modbus non autorizzata.",
-          href: links.aquaSecure,
-        },
+          "Esperienza internazionale di un anno che dimostra indipendenza, adattabilità, comunicazione in inglese e collaborazione interculturale. Il corso includeva sicurezza OT/ICS e il progetto collaborativo AquaSecure.",
       },
       {
         organization: "Università di Torino",

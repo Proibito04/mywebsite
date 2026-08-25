@@ -1890,6 +1890,28 @@ code {
   font-weight: 700;
 }
 
+.cv-practice-line {
+  display: flex;
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem;
+  color: var(--subtle);
+  font-family: "Fira Code", monospace;
+  font-size: 0.62rem;
+}
+
+.cv-practice-line a {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.cv-practice-line > span:first-child {
+  color: var(--ink);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 .cv-privacy-consent {
   margin: 0;
   padding: 0 clamp(1.5rem, 4vw, 3.5rem) 2rem;
@@ -2436,7 +2458,7 @@ code {
 @media print {
   @page {
     size: A4;
-    margin: 8mm 10mm;
+    margin: 6mm 9mm;
   }
 
   :root,
@@ -2458,8 +2480,8 @@ code {
   body {
     background: #fff !important;
     color: #111;
-    font-size: 9.4pt;
-    line-height: 1.45;
+    font-size: 8.6pt;
+    line-height: 1.35;
     text-rendering: optimizeLegibility;
   }
 
@@ -2481,20 +2503,20 @@ code {
   }
 
   .cv-hero {
-    padding: 0 0 3mm;
+    padding: 0 0 2.5mm;
     border-bottom: 0.35mm solid var(--accent);
     break-after: avoid-page;
   }
 
   .cv-head {
-    grid-template-columns: minmax(0, 1fr) 27mm;
+    grid-template-columns: minmax(0, 1fr) 23mm;
     align-items: center;
-    gap: 7mm;
+    gap: 5mm;
     break-inside: avoid;
   }
 
   .cv-head h1 {
-    font-size: 28pt;
+    font-size: 25pt;
     line-height: 0.96;
     letter-spacing: -0.025em;
   }
@@ -2504,7 +2526,7 @@ code {
   }
 
   .cv-portrait {
-    width: 27mm;
+    width: 23mm;
     border-width: 0.25mm;
     border-radius: 1.5mm;
     box-shadow: none;
@@ -2516,18 +2538,21 @@ code {
 
   .cv-deck {
     max-width: none;
-    margin-top: 2.5mm;
-    font-size: 9.6pt;
-    line-height: 1.35;
+    margin-top: 2mm;
+    font-size: 8.7pt;
+    line-height: 1.3;
   }
 
   .cv-location {
-    margin-top: 2mm;
-    font-size: 7.2pt;
+    margin-top: 1.5mm;
+    font-size: 6.7pt;
     letter-spacing: 0.01em;
   }
 
   .cv-document {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 6mm;
     margin: 0;
     border: 0;
     box-shadow: none;
@@ -2536,84 +2561,110 @@ code {
   }
 
   .cv-section {
-    grid-template-columns: 30mm minmax(0, 1fr);
-    padding: 2.8mm 0;
-    break-inside: auto;
-    gap: 7mm;
+    display: block;
+    min-width: 0;
+    padding: 2mm 0;
+    break-inside: avoid;
+  }
+
+  .cv-section-profile,
+  .cv-privacy-consent {
+    grid-column: 1 / -1;
+  }
+
+  .cv-section-education,
+  .cv-section-leadership,
+  .cv-section-languages {
+    grid-column: 1;
+  }
+
+  .cv-section-projects,
+  .cv-section-skills,
+  .cv-section-contact {
+    grid-column: 2;
+  }
+
+  .cv-section-evidence {
+    display: none;
   }
 
   .cv-section-title {
-    font-size: 7pt;
+    margin-bottom: 1.4mm;
+    font-size: 6.5pt;
     line-height: 1.4;
     letter-spacing: 0.08em;
     break-after: avoid;
   }
 
   .cv-profile-copy {
-    font-size: 9.2pt;
-    line-height: 1.48;
+    font-size: 8.2pt;
+    line-height: 1.35;
   }
 
   .timeline {
-    gap: 2.6mm;
+    gap: 1.6mm;
   }
 
   .timeline-title h3,
   .cv-project h3,
   .practice-card h3,
   .leadership-item h3 {
-    font-size: 10pt;
+    font-size: 8.7pt;
     line-height: 1.08;
   }
 
   .timeline-period,
   .leadership-item .period {
-    font-size: 6.8pt;
+    font-size: 6.1pt;
   }
 
   .timeline-role,
   .leadership-item .role {
-    font-size: 7.7pt;
+    font-size: 6.9pt;
   }
 
   .institution-logo {
-    width: 18mm;
-    height: 9mm;
+    width: 13mm;
+    height: 6mm;
   }
 
   .institution-heading {
-    gap: 2mm;
+    gap: 1.2mm;
   }
 
   .timeline-item > p:last-of-type,
   .cv-project p,
   .practice-card p,
   .leadership-item > p:not(.role, .period) {
-    font-size: 8.1pt;
-    line-height: 1.42;
+    font-size: 7.4pt;
+    line-height: 1.3;
   }
 
   .nested-project {
-    margin-top: 1.5mm;
-    padding: 1.8mm 2.2mm;
+    margin-top: 1mm;
+    padding: 1.2mm 1.5mm;
   }
 
   .nested-project p {
-    font-size: 7.5pt;
-    line-height: 1.4;
+    font-size: 6.8pt;
+    line-height: 1.3;
   }
 
   .cv-project-list {
-    gap: 2mm;
+    gap: 1.4mm;
   }
 
   .cv-project {
-    grid-template-columns: 7mm minmax(0, 1fr);
-    padding-bottom: 2mm;
-    gap: 2mm;
+    grid-template-columns: 5mm minmax(0, 1fr);
+    padding-bottom: 1.4mm;
+    gap: 1mm;
   }
 
   .cv-project a {
+    display: none;
+  }
+
+  .cv-project-detail {
     display: none;
   }
 
@@ -2621,12 +2672,13 @@ code {
   .leadership-item,
   .skill-group,
   .evidence-row {
-    padding: 2mm;
+    padding: 1.5mm;
   }
 
   .leadership-list,
   .skills-grid {
-    gap: 2mm;
+    grid-template-columns: 1fr;
+    gap: 1.4mm;
   }
 
   .practice-links {
@@ -2654,49 +2706,56 @@ code {
   }
 
   .skill-group h3 {
-    margin-bottom: 1mm;
-    font-size: 8pt;
+    margin-bottom: 0.6mm;
+    font-size: 7.5pt;
   }
 
   .skill-summary {
-    font-size: 7.7pt;
-    line-height: 1.35;
+    font-size: 7.1pt;
+    line-height: 1.28;
   }
 
   .skill-tools {
-    margin-top: 1.4mm;
-    font-size: 6.4pt;
-    line-height: 1.4;
+    margin-top: 0.9mm;
+    font-size: 6.2pt;
+    line-height: 1.3;
   }
 
   .skills-context {
-    margin-top: 2mm;
-    font-size: 6.8pt;
-    line-height: 1.35;
+    margin-top: 1.2mm;
+    font-size: 6.2pt;
+    line-height: 1.3;
   }
 
   .languages-list {
-    gap: 2mm;
+    gap: 1.3mm;
   }
 
   .language-item {
-    padding: 2mm 2.5mm;
-    gap: 2mm;
+    padding: 1.5mm 2mm;
+    gap: 1.5mm;
+    font-size: 7.2pt;
   }
 
   .language-item span {
-    font-size: 6.8pt;
+    font-size: 6.1pt;
   }
 
   .contact-grid {
-    gap: 2mm 6mm;
-    font-size: 8.2pt;
+    gap: 1.2mm 4mm;
+    font-size: 7.2pt;
+  }
+
+  .cv-practice-line {
+    gap: 0.3rem;
+    font-size: 6.2pt;
+    line-height: 1.25;
   }
 
   .cv-privacy-consent {
-    padding: 0 0 3mm;
-    font-size: 6.8pt;
-    line-height: 1.35;
+    padding: 1mm 0 0;
+    font-size: 6pt;
+    line-height: 1.25;
   }
 
   .timeline-item,

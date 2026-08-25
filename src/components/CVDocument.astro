@@ -1,7 +1,5 @@
 ---
-import Download from "lucide-astro/Download";
 import ExternalLink from "lucide-astro/ExternalLink";
-import FileText from "lucide-astro/FileText";
 import Printer from "lucide-astro/Printer";
 import type { ProfileContent } from "../data/profile";
 import { socialLinks } from "../data/profile";
@@ -94,14 +92,14 @@ const evidenceRows =
 </header>
 
 <article class="narrow-shell cv-document" aria-label={content.cv.title}>
-  <section class="cv-section">
+  <section class="cv-section cv-section-profile">
     <h2 class="cv-section-title">{content.cv.profileTitle}</h2>
     <div class="cv-section-content">
       <p class="cv-profile-copy">{content.cv.profile}</p>
     </div>
   </section>
 
-  <section class="cv-section">
+  <section class="cv-section cv-section-education">
     <h2 class="cv-section-title">{content.cv.educationTitle}</h2>
     <div class="cv-section-content">
       <ol class="timeline">
@@ -154,7 +152,7 @@ const evidenceRows =
     </div>
   </section>
 
-  <section class="cv-section">
+  <section class="cv-section cv-section-projects">
     <h2 class="cv-section-title">{content.cv.projectsTitle}</h2>
     <div class="cv-section-content cv-project-list">
       {
@@ -164,7 +162,8 @@ const evidenceRows =
             <div>
               <h3>{project.title}</h3>
               <p>
-                <strong>{project.status}</strong> — {project.summary} {project.detail}
+                <strong>{project.status}</strong> — {project.summary}{" "}
+                <span class="cv-project-detail">{project.detail}</span>
               </p>
             </div>
             <a
@@ -180,43 +179,7 @@ const evidenceRows =
     </div>
   </section>
 
-  <section class="cv-section">
-    <h2 class="cv-section-title">{content.cv.practiceTitle}</h2>
-    <div class="cv-section-content">
-      <div class="practice-card">
-        <div class="practice-copy">
-          <h3>{content.credential.title}</h3>
-          <p>
-            {content.credential.issuer}. {content.credential.summary}{" "}
-            {locale === "it"
-              ? "La pratica continua con HTB, challenge e writeup tecnici."
-              : "Ongoing practice continues through HTB machines, challenges, and technical writeups."}
-          </p>
-        </div>
-        <div class="practice-links">
-          <a class="practice-link" href={content.credential.pdf} download>
-            <Download size={14} aria-hidden="true" />
-            {content.cv.credentialPdfLabel}
-          </a>
-          <a
-            class="practice-link"
-            href={socialLinks.htb}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <ExternalLink size={13} aria-hidden="true" />
-            {content.cv.credentialHtbLabel}
-          </a>
-          <a class="practice-link" href="/writeups">
-            <FileText size={14} aria-hidden="true" />
-            {content.cv.credentialWriteupsLabel}
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cv-section">
+  <section class="cv-section cv-section-leadership">
     <h2 class="cv-section-title">{content.cv.leadershipTitle}</h2>
     <div class="cv-section-content leadership-list">
       {
@@ -237,7 +200,7 @@ const evidenceRows =
     </div>
   </section>
 
-  <section class="cv-section">
+  <section class="cv-section cv-section-skills">
     <h2 class="cv-section-title">{content.cv.skillsTitle}</h2>
     <div class="cv-section-content">
       <div class="skills-grid">
@@ -258,7 +221,7 @@ const evidenceRows =
     </div>
   </section>
 
-  <section class="cv-section">
+  <section class="cv-section cv-section-languages">
     <h2 class="cv-section-title">{locale === "it" ? "Lingue" : "Languages"}</h2>
     <div class="cv-section-content languages-list">
       {content.languages.map((language) => (
@@ -270,7 +233,7 @@ const evidenceRows =
     </div>
   </section>
 
-  <section class="cv-section evidence-map-section">
+  <section class="cv-section cv-section-evidence evidence-map-section">
     <div>
       <h2 class="cv-section-title">{content.cv.evidenceTitle}</h2>
       <p class="skill-group-note">{content.cv.evidenceIntro}</p>
@@ -289,13 +252,20 @@ const evidenceRows =
     </div>
   </section>
 
-  <section class="cv-section">
+  <section class="cv-section cv-section-contact">
     <h2 class="cv-section-title">{content.cv.contactTitle}</h2>
     <div class="cv-section-content contact-grid">
       <a href="mailto:edoardo@edoardobalzano.com">edoardo@edoardobalzano.com</a>
       <a href={socialLinks.github} target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href={socialLinks.htb} target="_blank" rel="noopener noreferrer">Hack The Box</a>
+      <div class="cv-practice-line">
+        <span>{locale === "it" ? "Pratica" : "Practice"}</span>
+        <a href={socialLinks.htb} target="_blank" rel="noopener noreferrer">Hack The Box</a>
+        <span aria-hidden="true">·</span>
+        <a href="/writeups">{locale === "it" ? "Writeup tecnici" : "Technical writeups"}</a>
+        <span aria-hidden="true">·</span>
+        <a href={content.credential.pdf} download>CyberChallenge.IT</a>
+      </div>
     </div>
   </section>
 
