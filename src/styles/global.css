@@ -1,20 +1,38 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* General Sans by Frode Helland / ITF. License: ../assets/fonts/GeneralSans-LICENSE.txt */
 @font-face {
-  font-family: "TT Norms Pro";
-  src: url("../assets/fonts/TTNormsPro-Normal.ttf") format("truetype");
+  font-family: "General Sans";
+  src: url("../assets/fonts/GeneralSans-Variable.woff2") format("woff2");
   font-display: swap;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 200 700;
 }
 
 @font-face {
-  font-family: "TT Rationalist";
-  src: url("../assets/fonts/TT-Rationalist-Medium.ttf") format("truetype");
+  font-family: "General Sans";
+  src: url("../assets/fonts/GeneralSans-VariableItalic.woff2") format("woff2");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 200 700;
+}
+
+/* Zilla Slab by Typotheque / Mozilla. License: ../assets/fonts/ZillaSlab-LICENSE.txt */
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("../assets/fonts/ZillaSlab-Medium.woff2") format("woff2");
   font-display: swap;
   font-style: normal;
   font-weight: 500;
+}
+
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("../assets/fonts/ZillaSlab-Bold.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
 }
 
 @theme {
@@ -27,8 +45,8 @@
 }
 
 @theme inline {
-  --font-sans: "TT Norms Pro", Inter, ui-sans-serif, system-ui, sans-serif;
-  --font-headers: "TT Rationalist", Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "General Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-headers: "Zilla Slab", Georgia, ui-serif, serif;
 }
 
 :root {
@@ -109,7 +127,7 @@ body {
   background-position: center top;
   background-size: 72px 72px;
   color: var(--ink);
-  font-family: "TT Norms Pro", Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: "General Sans", Inter, ui-sans-serif, system-ui, sans-serif;
   font-size: 1rem;
   line-height: 1.65;
   text-rendering: optimizeLegibility;
@@ -171,7 +189,7 @@ h3,
 h4,
 h5 {
   margin: 0;
-  font-family: "TT Rationalist", Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-headers);
   font-weight: 500;
   line-height: 1.04;
   letter-spacing: -0.035em;
@@ -283,7 +301,7 @@ code {
 }
 
 .brand-copy strong {
-  font-family: "TT Rationalist";
+  font-family: var(--font-headers);
   font-size: 1rem;
   letter-spacing: -0.015em;
 }
@@ -1377,7 +1395,7 @@ code {
 
 .footer-name {
   color: var(--ink);
-  font-family: "TT Rationalist";
+  font-family: var(--font-headers);
   font-size: 1rem;
 }
 
