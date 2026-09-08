@@ -1417,55 +1417,39 @@ code {
   font-family: "Fira Code", monospace;
 }
 
-/* Recruiter-oriented CV */
+/* Compact bilingual CV */
 .cv-page {
   background: var(--page);
 }
 
 .cv-hero {
-  padding-block: clamp(3.5rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4rem);
+  padding-block: clamp(1.5rem, 4vw, 3rem) 1.5rem;
 }
 
 .cv-head {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 10.5rem;
-  align-items: center;
-  gap: clamp(2rem, 5vw, 4.5rem);
-}
-
-.cv-head h1 {
-  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  grid-template-columns: minmax(0, 1fr) 8rem;
+  align-items: start;
+  gap: 2rem;
 }
 
 .cv-head-copy {
   min-width: 0;
 }
 
-.cv-head-aside {
-  display: grid;
-  align-items: stretch;
-  gap: 0.9rem;
+.cv-head h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.05;
 }
 
 .cv-portrait {
-  position: relative;
   aspect-ratio: 4 / 5;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--line-strong);
-  border-radius: 0.45rem;
+  border-bottom: 3px solid var(--accent);
+  border-radius: 0.3rem;
   background: var(--surface);
-  box-shadow: var(--shadow);
-}
-
-.cv-portrait::after {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 0.25rem;
-  background: var(--accent);
-  content: "";
 }
 
 .cv-portrait img {
@@ -1476,47 +1460,74 @@ code {
 }
 
 .cv-deck {
-  max-width: 54ch;
-  margin-top: 1rem;
+  max-width: 68ch;
+  margin: 0.7rem 0 0;
   color: var(--muted);
-  font-size: clamp(1.08rem, 2vw, 1.35rem);
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .cv-location {
-  margin: 1rem 0 0;
-  color: var(--subtle);
-  font-family: "Fira Code", monospace;
-  font-size: 0.68rem;
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.cv-contacts,
+.cv-evidence-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1.15rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.cv-contacts {
+  margin-top: 0.6rem;
+}
+
+.cv-contacts a,
+.cv-evidence-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.7rem;
+  gap: 0.35rem;
+  color: var(--accent);
+  overflow-wrap: anywhere;
 }
 
 .print-button {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 0.95rem;
+  margin-top: 0.8rem;
+  padding: 0.6rem 0.8rem;
   border: 1px solid var(--line-strong);
   border-radius: 0.3rem;
   background: var(--surface);
   cursor: pointer;
   font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: 600;
+}
+
+.print-button:hover {
+  background: var(--accent-soft);
 }
 
 .cv-document {
-  margin-bottom: 6rem;
+  margin-bottom: 3rem;
   border: 1px solid var(--line);
-  border-radius: 0.45rem;
+  border-radius: 0.4rem;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 .cv-section {
-  display: grid;
-  grid-template-columns: minmax(10rem, 0.28fr) minmax(0, 0.72fr);
-  padding: clamp(1.5rem, 4vw, 3.5rem);
+  padding: 1.3rem clamp(1rem, 3vw, 2rem);
   border-top: 1px solid var(--line);
-  gap: 2rem clamp(2rem, 6vw, 6rem);
 }
 
 .cv-section:first-child {
@@ -1524,418 +1535,240 @@ code {
 }
 
 .cv-section-title {
+  margin: 0 0 0.7rem;
   color: var(--accent);
   font-family: "Fira Code", monospace;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.07em;
+  line-height: 1.5;
   text-transform: uppercase;
 }
 
-.cv-section-content > p:last-child {
-  margin-bottom: 0;
-}
-
-.cv-profile-copy {
-  max-width: 70ch;
-  font-size: 1.08rem;
-}
-
-.timeline {
-  position: relative;
-  display: grid;
-  margin: 0;
-  padding: 0;
-  gap: 2rem;
-  list-style: none;
-}
-
-.timeline::before {
-  position: absolute;
-  top: 0.4rem;
-  bottom: 0.4rem;
-  left: 0.29rem;
-  width: 1px;
-  background: var(--line-strong);
-  content: "";
-}
-
-.timeline-item {
-  position: relative;
-  padding-left: 1.8rem;
-}
-
-.timeline-item::before {
-  position: absolute;
-  z-index: 1;
-  top: 0.38rem;
-  left: 0;
-  width: 0.62rem;
-  height: 0.62rem;
-  border: 2px solid var(--surface);
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent);
-  content: "";
-}
-
-.timeline-title {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.timeline-title h3 {
-  font-size: 1.3rem;
-}
-
-.institution-heading {
-  display: flex;
-  align-items: center;
-  min-width: 0;
-  gap: 0.75rem;
-}
-
-.institution-logo {
-  flex: 0 0 auto;
-  width: 6.5rem;
-  height: 2.75rem;
-  object-fit: contain;
-  border-radius: 0.15rem;
-  background: var(--surface);
-}
-
-.timeline-period {
-  flex: 0 0 auto;
-  color: var(--subtle);
-  font-family: "Fira Code", monospace;
-  font-size: 0.62rem;
-}
-
-.timeline-role {
-  margin: 0.2rem 0 0.55rem;
-  color: var(--cyan);
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.timeline-item > p:last-of-type {
-  margin-bottom: 0;
+.cv-section p {
+  margin: 0.45rem 0 0;
   color: var(--muted);
-  font-size: 0.91rem;
 }
 
-.nested-project {
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--cyan);
-  border-radius: 0.2rem;
-  background: var(--page-soft);
+.cv-section > p:first-of-type {
+  margin-top: 0;
 }
 
-.nested-project a {
-  font-weight: 700;
+.cv-section h3 {
+  font-size: 1.23rem;
+  line-height: 1.3;
 }
 
-.nested-project p {
-  margin: 0.4rem 0 0;
-  color: var(--muted);
-  font-size: 0.82rem;
+.cv-section .cv-profile-copy {
+  color: var(--ink);
 }
 
-.cv-project-list {
-  display: grid;
-  gap: 1.4rem;
-}
-
-.cv-project {
-  display: grid;
-  grid-template-columns: 2.5rem 1fr auto;
-  padding-bottom: 1.4rem;
-  border-bottom: 1px solid var(--line);
-  gap: 1rem;
-}
-
-.cv-project:last-child {
-  padding-bottom: 0;
-  border-bottom: 0;
-}
-
-.cv-project-number {
-  color: var(--accent);
-  font-family: "Fira Code", monospace;
-  font-size: 0.65rem;
-}
-
-.cv-project h3 {
-  font-size: 1.3rem;
-}
-
-.cv-project p {
-  margin: 0.4rem 0 0;
-  color: var(--muted);
-  font-size: 0.88rem;
-}
-
-.cv-project a {
-  align-self: start;
-  color: var(--accent);
-  font-size: 0.72rem;
-  font-weight: 700;
-}
-
-.practice-card {
-  padding: 1.2rem;
-  border: 1px solid var(--line);
-  border-radius: 0.3rem;
-  background: var(--page-soft);
-}
-
-.practice-card h3 {
-  font-size: 1.35rem;
-}
-
-.practice-card p {
-  margin: 0.5rem 0 0;
-  color: var(--muted);
-  font-size: 0.88rem;
-}
-
-.practice-links {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 1rem;
-  gap: 0.55rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-}
-
-.practice-link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.4rem;
-  padding: 0.55rem 0.75rem;
-  border: 1px solid var(--line-strong);
-  border-radius: 0.25rem;
-  background: var(--surface);
-  gap: 0.45rem;
-  text-decoration: none;
-}
-
-.practice-link:hover {
-  border-color: var(--accent);
+.cv-security {
+  border-left: 3px solid var(--accent);
   background: var(--accent-soft);
 }
 
-.leadership-list {
+.cv-highlights {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  margin: 0.65rem 0;
+  padding-left: 1.2rem;
+  gap: 0.4rem;
+  list-style: disc;
+}
+
+.cv-highlights li::marker {
+  color: var(--accent);
+}
+
+.cv-evidence-links {
+  margin-top: 0.75rem;
+}
+
+.cv-entries {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  gap: 1rem;
+  list-style: none;
+}
+
+.cv-entry-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+}
+
+.cv-entry-heading > * {
+  min-width: 0;
+}
+
+.cv-entry-heading > .cv-meta {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.cv-section .cv-meta {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.cv-project-entry + .cv-project-entry {
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.cv-project-entry h3 a {
+  color: var(--ink);
+}
+
+.cv-project-entry h3 svg {
+  display: inline-block;
+  margin-left: 0.15rem;
+  color: var(--accent);
+}
+
+.cv-featured-project h3 {
+  font-size: 1.5rem;
+}
+
+.cv-section .cv-project-result {
+  color: var(--ink);
+}
+
+.cv-section .cv-project-limit {
+  font-size: 0.88rem;
+}
+
+.cv-section .cv-stack {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.cv-stack span {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.cv-institution-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cv-education .cv-entry-heading {
+  align-items: center;
+}
+
+.cv-institution-logo {
+  flex: 0 0 5rem;
+  width: 5rem;
+  height: 2.5rem;
+  padding: 0.2rem;
+  border-radius: 0.15rem;
+  background: #fff;
+  object-fit: contain;
+}
+
+.cv-institution {
+  font-family: "General Sans", sans-serif;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.cv-skills {
+  display: grid;
+  margin: 0;
+  gap: 0.75rem;
+}
+
+.cv-skills > div {
+  display: grid;
+  grid-template-columns: minmax(0, 0.32fr) minmax(0, 0.68fr);
   gap: 1rem;
 }
 
-.leadership-item {
-  padding: 1.15rem;
-  border: 1px solid var(--line);
-  border-radius: 0.3rem;
+.cv-skills dt {
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 600;
 }
 
-.leadership-item h3 {
-  font-size: 1.25rem;
-}
-
-.leadership-item .role {
-  margin: 0.25rem 0 0;
-  color: var(--cyan);
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.leadership-item .period {
-  color: var(--subtle);
-  font-family: "Fira Code", monospace;
-  font-size: 0.6rem;
-}
-
-.leadership-item > p:not(.role, .period) {
-  margin: 0.75rem 0 0;
+.cv-skills dd {
+  margin: 0;
   color: var(--muted);
   font-size: 0.85rem;
 }
 
-.compact-values {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0.9rem 0 0;
-  padding: 0;
-  gap: 0.4rem;
-  list-style: none;
+.cv-skill-context {
+  display: block;
+  margin-bottom: 0.25rem;
 }
 
-.compact-values li {
-  color: var(--subtle);
-  font-family: "Fira Code", monospace;
-  font-size: 0.57rem;
-}
-
-.compact-values li + li::before {
-  margin-right: 0.4rem;
-  color: var(--accent);
-  content: "·";
-}
-
-.skills-grid {
-  display: grid;
-  gap: 1rem;
-}
-
-.skill-group {
-  padding: 1.1rem 1.2rem;
-  border: 1px solid var(--line);
-  border-radius: 0.25rem;
-  background: var(--page-soft);
-}
-
-.skill-group h3 {
-  margin-bottom: 0.4rem;
-  color: var(--cyan);
-  font-size: 1rem;
-}
-
-.skill-summary {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.86rem;
-}
-
-.skill-tools {
-  margin: 0.7rem 0 0;
-  color: var(--subtle);
-  font-family: "Fira Code", monospace;
-  font-size: 0.63rem;
-  line-height: 1.55;
-}
-
-.skill-tools strong {
+.cv-section .cv-languages {
+  margin-top: 0;
   color: var(--ink);
+  font-size: 0.85rem;
 }
 
-.skills-context {
-  margin: 0.85rem 0 0;
-  color: var(--subtle);
-  font-size: 0.72rem;
+.cv-work .cv-entries {
+  gap: 0.6rem;
 }
 
-.languages-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+.cv-work h3 {
+  font-family: "General Sans", sans-serif;
+  font-size: 0.9rem;
 }
 
-.language-item {
-  display: flex;
-  align-items: baseline;
-  padding: 0.85rem 1rem;
-  border: 1px solid var(--line);
-  border-radius: 0.25rem;
-  background: var(--page-soft);
-  gap: 0.75rem;
-}
-
-.language-item span {
-  color: var(--cyan);
-  font-family: "Fira Code", monospace;
-  font-size: 0.68rem;
-  font-weight: 700;
-}
-
-.skill-group-note {
-  margin: 0.7rem 0 0;
-  color: var(--subtle);
-  font-size: 0.68rem;
-}
-
-.evidence-map {
-  display: grid;
-  gap: 0.7rem;
-}
-
-.evidence-row {
-  display: grid;
-  grid-template-columns: minmax(9rem, 0.3fr) minmax(0, 0.7fr);
-  align-items: center;
-  min-height: 3rem;
-  border: 1px solid var(--line);
-  border-radius: 0.25rem;
-  gap: 1rem;
-}
-
-.evidence-row strong {
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  padding: 0.7rem 1rem;
-  border-right: 1px solid var(--line);
-  color: var(--cyan);
-  font-family: "Fira Code", monospace;
-  font-size: 0.65rem;
-}
-
-.evidence-sources {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0.5rem 1rem 0.5rem 0;
-  gap: 0.4rem;
-}
-
-.evidence-sources span {
-  padding: 0.23rem 0.48rem;
-  border-radius: 99px;
-  background: var(--accent-soft);
-  color: var(--ink);
-  font-size: 0.68rem;
-}
-
-.contact-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem 1.5rem;
-}
-
-.contact-grid a {
-  color: var(--accent);
-  font-weight: 700;
-}
-
-.cv-practice-line {
-  display: flex;
-  flex-basis: 100%;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.45rem;
-  color: var(--subtle);
-  font-family: "Fira Code", monospace;
-  font-size: 0.62rem;
-}
-
-.cv-practice-line a {
-  font-family: inherit;
-  font-size: inherit;
-}
-
-.cv-practice-line > span:first-child {
-  color: var(--ink);
-  font-weight: 700;
-  text-transform: uppercase;
+.cv-work p {
+  font-size: 0.85rem;
 }
 
 .cv-privacy-consent {
   margin: 0;
-  padding: 0 clamp(1.5rem, 4vw, 3.5rem) 2rem;
-  color: var(--subtle);
-  font-size: 0.68rem;
+  padding: 0 clamp(1rem, 3vw, 2rem) 1rem;
+  color: var(--muted);
+  font-size: 0.65rem;
   font-style: italic;
+}
+
+.cv-print-only {
+  display: none;
+}
+
+@media screen and (max-width: 640px) {
+  .cv-head {
+    grid-template-columns: minmax(0, 1fr) 4.5rem;
+    gap: 0.75rem;
+  }
+
+  .cv-head h1 {
+    font-size: clamp(2.1rem, 8vw, 3rem);
+  }
+
+  .cv-deck {
+    font-size: 0.95rem;
+  }
+
+  .cv-entry-heading {
+    flex-wrap: wrap;
+  }
+
+  .cv-entry-heading > .cv-meta {
+    flex-shrink: 1;
+    text-align: left;
+  }
+
+  .cv-skills > div {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .cv-education h3 {
+    font-size: 1.1rem;
+  }
 }
 
 /* Notes and writeups retain their original language and content. */
@@ -2271,10 +2104,6 @@ code {
     margin-bottom: 2.5rem;
   }
 
-  .cv-section {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
 
   .footer-grid {
     grid-template-columns: 1fr auto;
@@ -2354,9 +2183,7 @@ code {
   .evidence-grid,
   .writing-grid,
   .profiles-grid,
-  .supporting-project-grid,
-  .skills-grid,
-  .leadership-list {
+  .supporting-project-grid {
     grid-template-columns: 1fr;
   }
 
@@ -2397,57 +2224,6 @@ code {
     gap: 2rem;
   }
 
-  .cv-head {
-    grid-template-columns: 1fr;
-  }
-
-  .cv-head-aside {
-    grid-template-columns: minmax(7.5rem, 9rem) auto;
-    align-items: end;
-    justify-content: space-between;
-  }
-
-  .cv-head h1 {
-    font-size: clamp(3.35rem, 17vw, 5rem);
-  }
-
-  .timeline-title,
-  .practice-card {
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
-
-  .timeline-title {
-    display: block;
-  }
-
-  .timeline-period {
-    display: block;
-    margin-top: 0.2rem;
-  }
-
-  .cv-project {
-    grid-template-columns: 2rem 1fr;
-  }
-
-  .cv-project a {
-    grid-column: 2;
-  }
-
-  .evidence-row {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .evidence-row strong {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .evidence-sources {
-    padding: 0.7rem;
-  }
-
   .footer-grid {
     grid-template-columns: 1fr;
     align-items: start;
@@ -2476,7 +2252,7 @@ code {
 @media print {
   @page {
     size: A4;
-    margin: 6mm 9mm;
+    margin: 10mm;
   }
 
   :root,
@@ -2521,268 +2297,173 @@ code {
   }
 
   .cv-hero {
-    padding: 0 0 3.5mm;
+    padding: 0 0 3mm;
     border-bottom: 0.35mm solid var(--accent);
-    break-after: avoid-page;
+    break-after: avoid;
   }
 
   .cv-head {
-    grid-template-columns: minmax(0, 1fr) 25mm;
+    grid-template-columns: minmax(0, 1fr) 20mm;
+    gap: 5mm;
     align-items: center;
-    gap: 6mm;
-    break-inside: avoid;
   }
 
   .cv-head h1 {
-    font-size: 27pt;
-    line-height: 0.96;
-    letter-spacing: -0.025em;
-  }
-
-  .cv-head-aside {
-    display: block;
+    font-size: 26pt;
+    line-height: 1;
   }
 
   .cv-portrait {
-    width: 25mm;
-    border-width: 0.25mm;
-    border-radius: 1.5mm;
-    box-shadow: none;
-  }
-
-  .cv-portrait::after {
-    height: 0.8mm;
+    width: 20mm;
+    border-bottom-width: 0.6mm;
   }
 
   .cv-deck {
     max-width: none;
-    margin-top: 2.5mm;
-    font-size: 9.2pt;
-    line-height: 1.36;
+    margin-top: 2mm;
+    font-size: 9pt;
+    line-height: 1.35;
   }
 
   .cv-location {
-    margin-top: 2mm;
-    font-size: 7pt;
-    letter-spacing: 0.01em;
+    margin-top: 1.5mm;
+    font-size: 8pt;
+  }
+
+  .cv-contacts {
+    margin-top: 1mm;
+    gap: 1mm 4mm;
+    font-size: 8pt;
+  }
+
+  .cv-contacts a,
+  .cv-evidence-links a {
+    min-height: 0;
   }
 
   .cv-document {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    column-gap: 6mm;
+    display: block;
     margin: 0;
     border: 0;
+    border-radius: 0;
     box-shadow: none;
-    break-before: avoid-page;
-    break-inside: auto;
+    font-size: 9pt;
+    line-height: 1.4;
   }
 
   .cv-section {
-    display: block;
-    min-width: 0;
-    padding: 2.7mm 0;
-    break-inside: avoid;
-  }
-
-  .cv-section-profile,
-  .cv-privacy-consent {
-    grid-column: 1 / -1;
-  }
-
-  .cv-section-education,
-  .cv-section-leadership,
-  .cv-section-languages {
-    grid-column: 1;
-  }
-
-  .cv-section-projects,
-  .cv-section-skills,
-  .cv-section-contact {
-    grid-column: 2;
-  }
-
-  .cv-section-evidence {
-    display: none;
+    padding: 2.5mm 0;
+    break-inside: auto;
   }
 
   .cv-section-title {
-    margin-bottom: 1.8mm;
-    font-size: 7pt;
-    line-height: 1.4;
-    letter-spacing: 0.08em;
+    margin-bottom: 1.5mm;
+    font-size: 7.5pt;
+    letter-spacing: 0.05em;
     break-after: avoid;
   }
 
-  .cv-profile-copy {
-    font-size: 8.8pt;
-    line-height: 1.42;
+  .cv-section p {
+    margin-top: 1mm;
   }
 
-  .timeline {
-    gap: 2.2mm;
-  }
-
-  .timeline-title h3,
-  .cv-project h3,
-  .practice-card h3,
-  .leadership-item h3 {
-    font-size: 9.7pt;
-    line-height: 1.12;
-  }
-
-  .timeline-period,
-  .leadership-item .period {
-    font-size: 6.6pt;
-  }
-
-  .timeline-role,
-  .leadership-item .role {
-    font-size: 7.4pt;
-  }
-
-  .institution-logo {
-    width: 15mm;
-    height: 7mm;
-  }
-
-  .institution-heading {
-    gap: 1.5mm;
-  }
-
-  .timeline-item > p:last-of-type,
-  .cv-project p,
-  .practice-card p,
-  .leadership-item > p:not(.role, .period) {
-    font-size: 8pt;
-    line-height: 1.38;
-  }
-
-  .nested-project {
-    margin-top: 1.5mm;
-    padding: 1.8mm 2mm;
-  }
-
-  .nested-project p {
-    font-size: 7.4pt;
-    line-height: 1.36;
-  }
-
-  .cv-project-list {
-    gap: 2mm;
-  }
-
-  .cv-project {
-    grid-template-columns: 5mm minmax(0, 1fr);
-    padding-bottom: 2mm;
-    gap: 1.5mm;
-  }
-
-  .cv-project a {
-    display: none;
-  }
-
-  .cv-project-detail {
-    display: none;
-  }
-
-  .practice-card,
-  .leadership-item,
-  .skill-group,
-  .evidence-row {
-    padding: 2mm;
-  }
-
-  .leadership-list,
-  .skills-grid {
-    grid-template-columns: 1fr;
-    gap: 2mm;
-  }
-
-  .practice-links {
-    margin-top: 1.5mm;
-    gap: 1.5mm;
-  }
-
-  .practice-link {
-    min-height: 0;
-    padding: 1.2mm 1.8mm;
-    border-width: 0.25mm;
-    font-size: 6.8pt;
+  .cv-section h3,
+  .cv-featured-project h3 {
+    font-size: 10pt;
     line-height: 1.2;
   }
 
-  .practice-link svg {
-    width: 3mm;
-    height: 3mm;
+  .cv-screen-only {
+    display: none !important;
   }
 
-  .compact-values,
-  .skill-group-note,
-  .evidence-map-section {
+  .cv-institution-logo {
+    flex-basis: 18mm;
+    width: 18mm;
+    height: 8mm;
+    padding: 0.5mm;
+  }
+
+  .cv-institution-heading {
+    gap: 2mm;
+  }
+
+  .cv-print-only {
+    display: block;
+  }
+
+  .cv-security {
+    border-left: 0;
+    background: transparent;
+  }
+
+  .cv-evidence-links {
+    margin-top: 1.5mm;
+    gap: 1mm 4mm;
+    font-size: 7.5pt;
+  }
+
+  .cv-evidence-links svg,
+  .cv-project-entry h3 svg {
     display: none;
   }
 
-  .skill-group h3 {
-    margin-bottom: 1mm;
-    font-size: 8pt;
-  }
-
-  .skill-summary {
-    font-size: 7.7pt;
-    line-height: 1.35;
-  }
-
-  .skill-tools {
-    margin-top: 1.4mm;
-    font-size: 6.5pt;
-    line-height: 1.38;
-  }
-
-  .skills-context {
-    margin-top: 1.8mm;
-    font-size: 6.7pt;
-    line-height: 1.35;
-  }
-
-  .languages-list {
-    gap: 1.8mm;
-  }
-
-  .language-item {
-    padding: 2mm 2.5mm;
+  .cv-entries {
     gap: 2mm;
+  }
+
+  .cv-entry-heading {
+    flex-wrap: nowrap;
+    gap: 3mm;
+  }
+
+  .cv-project-entry + .cv-project-entry {
+    padding-top: 0;
+    border: 0;
+  }
+
+  .cv-section .cv-meta {
+    font-size: 7.5pt;
+  }
+
+  .cv-institution {
+    font-size: 8.5pt;
+  }
+
+  .cv-skills {
+    gap: 1.5mm;
+  }
+
+  .cv-skills > div {
+    grid-template-columns: 56mm minmax(0, 1fr);
+    gap: 3mm;
+  }
+
+  .cv-skills dt,
+  .cv-skills dd,
+  .cv-section .cv-languages {
     font-size: 8pt;
+    line-height: 1.35;
   }
 
-  .language-item span {
-    font-size: 6.7pt;
+  .cv-work .cv-entries {
+    gap: 1.3mm;
   }
 
-  .contact-grid {
-    gap: 1.8mm 5mm;
-    font-size: 8pt;
-  }
-
-  .cv-practice-line {
-    gap: 0.4rem;
-    font-size: 6.7pt;
-    line-height: 1.3;
+  .cv-work h3 {
+    font-size: 8.5pt;
   }
 
   .cv-privacy-consent {
-    padding: 1.5mm 0 0;
-    font-size: 6.6pt;
-    line-height: 1.32;
+    padding: 1mm 0 0;
+    font-size: 6.5pt;
+    line-height: 1.3;
   }
 
-  .timeline-item,
-  .cv-project,
-  .practice-card,
-  .leadership-item,
-  .skill-group,
-  .contact-grid,
-  .language-item {
+  .cv-project-entry,
+  .cv-education li,
+  .cv-work li,
+  .cv-skills > div {
     break-inside: avoid;
   }
 

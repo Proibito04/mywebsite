@@ -149,6 +149,21 @@ export interface ProfileContent {
     print: string;
     profileTitle: string;
     profile: string;
+    profilePrint: string;
+    portraitAlt: string;
+    languagesTitle: string;
+    security: {
+      introduction: string;
+      highlights: string[];
+      practice: string;
+      printSummary: string;
+    };
+    projectPrintSummaries: Record<string, string>;
+    workSummaries: Record<string, string>;
+    practiceTitle: string;
+    credentialPdfLabel: string;
+    credentialHtbLabel: string;
+    credentialWriteupsLabel: string;
     educationTitle: string;
     projectsTitle: string;
     leadershipTitle: string;
@@ -400,7 +415,7 @@ export const profiles: Record<Locale, ProfileContent> = {
         eyebrow: "Front-of-House Manager",
         title: "Il MuMa",
         summary:
-          "Coordinates reservations, suppliers, cash, inventory, team flow, guest experience, and stewardship of an 80+ label wine cellar.",
+          "Coordinated reservations, suppliers, cash, inventory, team flow, guest experience, and stewardship of an 80+ label wine cellar.",
         tags: ["Ownership", "Composure", "Communication"],
       },
       {
@@ -520,13 +535,42 @@ export const profiles: Record<Locale, ProfileContent> = {
         "Junior Security Engineer focused on Linux, containerized infrastructure and network security, with hands-on experience building security tooling, operating self-hosted services and analyzing attack traffic.",
       location: "Turin, Italy · MSc Cybersecurity at Politecnico di Torino",
       print: "Print / Save as PDF",
-      profileTitle: "Professional profile",
+      profileTitle: "My path into cybersecurity",
       profile:
-        "I learn security by putting my hands on systems and examining how they fail. My strongest evidence sits across Linux, containerized services, network traffic, and practical attack/defense: from a distributed CTF analysis tool to a Raspberry Pi homelab, security automation and ongoing HTB practice. I work confidently in English (C1) and am currently learning French.",
+        "My curiosity about computer science began in middle school, when I taught myself to program. I went on to study Computer Science at the University of Turin, working alongside my studies to support myself. During university, I joined CyberChallenge.IT: that experience turned my curiosity about how systems work into a passion for cybersecurity. Today, I’m pursuing an MSc in Cybersecurity and continuing to learn through CTFs, security tooling, and running my own infrastructure.",
+      profilePrint:
+        "I taught myself to program in middle school, then studied Computer Science while working to support myself. At university, CyberChallenge.IT sparked my passion for cybersecurity. I now pursue that interest through my MSc, CTFs, and security projects.",
+      portraitAlt: "Professional portrait of Edoardo Balzano",
+      security: {
+        introduction:
+          "CyberChallenge.IT was the turning point in my path toward security. Attack/Defense practice connected my programming background with understanding vulnerable services and the traffic around them.",
+        highlights: [
+          "Participated as a finalist in the 8th edition of CyberChallenge.IT in 2024, representing the University of Turin after training in web, binary, cryptography, network, and Attack/Defense challenges.",
+          "Used Attack/Defense simulations to explore network traffic and attack patterns, turning a practical analysis problem into my BSc thesis project, CTF Hammer.",
+        ],
+        practice:
+          "I continue practicing on Hack The Box machines and challenges, developing reconnaissance, exploitation, and documentation habits. Technical writeups help me make that learning explicit and repeatable.",
+        printSummary:
+          "Finalist, CyberChallenge.IT 2024 (8th edition), University of Turin. Attack/Defense simulations shaped my CTF Hammer thesis. Continued practice through Hack The Box machines, challenges, and technical writeups.",
+      },
+      projectPrintSummaries: {
+        "ctf-hammer": "Individual BSc thesis: a distributed Attack/Defense traffic-analysis tool using tshark, Flask, SvelteKit, MongoDB, RabbitMQ/Celery, and Docker Compose. Tested in CyberChallenge simulations; not used in the national final because traffic collection risked saturating the network.",
+        "malware-analyzer": "Python pipeline for static HTA/JAR analysis, explainable heuristics, optional model-assisted assessment, CLI entry points, and functional tests.",
+        aquasecure: "Academic team project at Sabancı: simulated SCADA security with Docker network isolation and an SQLi → SSRF → Modbus attack chain.",
+      },
+      workSummaries: {
+        "Il MuMa": "Coordinated front-of-house service, the team, and daily operations.",
+        "Osteria La Cantinella": "Guest service and coordination with the front-of-house team.",
+      },
       educationTitle: "Education & international experience",
       projectsTitle: "Selected security projects",
-      leadershipTitle: "Leadership & operations",
-      skillsTitle: "Skills",
+      practiceTitle: "CyberChallenge & CTF practice",
+      credentialPdfLabel: "Certificate PDF",
+      credentialHtbLabel: "Hack The Box",
+      credentialWriteupsLabel: "Technical writeups",
+      languagesTitle: "Languages",
+      leadershipTitle: "Additional work experience",
+      skillsTitle: "Technical skills",
       skillsToolsLabel: "Tools",
       skillsContext:
         "Current direction: container, infrastructure and network security. Evidence comes from self-hosted Linux services, Docker networking, traffic analysis and security tooling.",
@@ -567,7 +611,7 @@ export const profiles: Record<Locale, ProfileContent> = {
         role: "BSc Computer Science",
         period: "Completed 2024",
         location: "Turin, Italy",
-        logo: "https://cdn.unito.it/unito-loghi/logo_sigillo_orizzontale.svg",
+        logo: "/media/unito-logo.svg",
         logoAlt: "University of Turin logo",
         summary:
           "Foundations in networks, operating systems, software development, and security. Thesis project: CTF Hammer.",
@@ -583,9 +627,9 @@ export const profiles: Record<Locale, ProfileContent> = {
       {
         organization: "Il MuMa",
         role: "Front-of-House Manager",
-        period: "Approx. 2024–present",
+        period: "Approx. 2024–2026",
         summary:
-          "Owns supplier orders, reservations, phone management, cash responsibility, linen inventory, team coordination, guest experience, and an 80+ label wine cellar.",
+          "Managed supplier orders, reservations, phone management, cash responsibility, linen inventory, team coordination, guest experience, and an 80+ label wine cellar.",
         details: ["Ownership", "Composure under pressure", "Reliable communication"],
       },
       {
@@ -637,6 +681,7 @@ export const profiles: Record<Locale, ProfileContent> = {
       },
     ],
     languages: [
+      { name: "Italian", level: "Native" },
       { name: "English", level: "C1" },
       { name: "French", level: "Currently learning" },
     ],
@@ -814,7 +859,7 @@ export const profiles: Record<Locale, ProfileContent> = {
         eyebrow: "Responsabile di sala",
         title: "Il MuMa",
         summary:
-          "Coordino prenotazioni, fornitori, cassa, inventario, flusso del team, esperienza ospite e una cantina da oltre 80 etichette.",
+          "Ho coordinato prenotazioni, fornitori, cassa, inventario, flusso del team, esperienza ospite e una cantina da oltre 80 etichette.",
         tags: ["Responsabilità", "Lucidità", "Comunicazione"],
       },
       {
@@ -934,13 +979,42 @@ export const profiles: Record<Locale, ProfileContent> = {
         "Junior Security Engineer focalizzato su Linux, infrastrutture containerizzate e sicurezza di rete, con esperienza pratica nello sviluppo di tooling, nella gestione di servizi self-hosted e nell’analisi del traffico d’attacco.",
       location: "Torino, Italia · Laurea magistrale in Cybersecurity al Politecnico di Torino",
       print: "Stampa / Salva come PDF",
-      profileTitle: "Profilo professionale",
+      profileTitle: "Il mio percorso verso la cybersecurity",
       profile:
-        "Studio la sicurezza mettendo le mani sui sistemi e osservando come falliscono. Le mie evidenze principali attraversano Linux, servizi containerizzati, traffico di rete e pratica Attack/Defense: da uno strumento distribuito per le CTF a un homelab Raspberry Pi, tooling di sicurezza e pratica continua su HTB. Lavoro bene in inglese (C1) e sto imparando il francese.",
+        "La mia curiosità per l’informatica è nata alle scuole medie, quando ho imparato a programmare da autodidatta. Ho poi scelto di studiare Informatica all’Università di Torino, lavorando durante gli studi per mantenermi. Durante l’università sono entrato in CyberChallenge.IT: quell’esperienza ha trasformato la curiosità per il funzionamento dei sistemi in una passione per la cybersecurity. Oggi frequento la magistrale in Cybersecurity e continuo a imparare attraverso CTF, strumenti di sicurezza e la gestione della mia infrastruttura.",
+      profilePrint:
+        "Ho imparato a programmare da autodidatta alle medie, poi ho studiato Informatica lavorando per mantenermi. All’università, CyberChallenge.IT ha acceso la mia passione per la cybersecurity, che oggi coltivo attraverso la magistrale, le CTF e i progetti di sicurezza.",
+      portraitAlt: "Ritratto professionale di Edoardo Balzano",
+      security: {
+        introduction:
+          "CyberChallenge.IT è stato il punto di svolta del mio percorso verso la sicurezza. La pratica Attack/Defense ha collegato le mie basi di programmazione allo studio dei servizi vulnerabili e del loro traffico.",
+        highlights: [
+          "Ho partecipato come finalista all’8ª edizione di CyberChallenge.IT nel 2024, rappresentando l’Università di Torino dopo attività pratiche su web, binary, crittografia, reti e challenge Attack/Defense.",
+          "Nelle simulazioni Attack/Defense ho approfondito l’analisi del traffico e dei pattern d’attacco, trasformando un problema pratico nel mio progetto di tesi triennale, CTF Hammer.",
+        ],
+        practice:
+          "Continuo ad allenarmi su macchine e challenge di Hack The Box, sviluppando un metodo di ricognizione, sfruttamento e documentazione. I writeup tecnici mi aiutano a rendere esplicito e ripetibile ciò che imparo.",
+        printSummary:
+          "Finalista CyberChallenge.IT 2024 (8ª edizione), Università di Torino. Le simulazioni Attack/Defense hanno dato forma alla tesi CTF Hammer. Pratica continua su macchine e challenge Hack The Box, documentata attraverso writeup tecnici.",
+      },
+      projectPrintSummaries: {
+        "ctf-hammer-it": "Tesi triennale individuale: strumento distribuito per analizzare traffico Attack/Defense con tshark, Flask, SvelteKit, MongoDB, RabbitMQ/Celery e Docker Compose. Testato nelle simulazioni CyberChallenge; non usato nella finale nazionale per il rischio di saturare la rete durante la raccolta del traffico.",
+        "malware-analyzer-it": "Pipeline Python per analisi statica HTA/JAR, euristiche spiegabili, valutazione opzionale con modelli linguistici, CLI e test funzionali.",
+        "aquasecure-it": "Progetto accademico di gruppo a Sabancı: sicurezza SCADA simulata, isolamento con reti Docker e catena d’attacco SQLi → SSRF → Modbus.",
+      },
+      workSummaries: {
+        "Il MuMa": "Ho coordinato il servizio di sala, il team e le attività quotidiane.",
+        "Osteria La Cantinella": "Servizio agli ospiti e collaborazione con il team di sala.",
+      },
       educationTitle: "Formazione ed esperienza internazionale",
       projectsTitle: "Progetti di sicurezza selezionati",
-      leadershipTitle: "Leadership e operazioni",
-      skillsTitle: "Competenze",
+      practiceTitle: "CyberChallenge e pratica CTF",
+      credentialPdfLabel: "Certificato PDF",
+      credentialHtbLabel: "Hack The Box",
+      credentialWriteupsLabel: "Writeup tecnici",
+      languagesTitle: "Lingue",
+      leadershipTitle: "Altre esperienze lavorative",
+      skillsTitle: "Competenze tecniche",
       skillsToolsLabel: "Strumenti",
       skillsContext:
         "Direzione attuale: sicurezza di container, infrastrutture e reti. Le evidenze arrivano da servizi Linux self-hosted, networking Docker, analisi del traffico e tooling di sicurezza.",
@@ -981,7 +1055,7 @@ export const profiles: Record<Locale, ProfileContent> = {
         role: "Laurea triennale in Informatica",
         period: "Completata nel 2024",
         location: "Torino, Italia",
-        logo: "https://cdn.unito.it/unito-loghi/logo_sigillo_orizzontale.svg",
+        logo: "/media/unito-logo.svg",
         logoAlt: "Logo dell’Università degli Studi di Torino",
         summary:
           "Basi in reti, sistemi operativi, sviluppo software e sicurezza. Progetto di tesi: CTF Hammer.",
@@ -997,9 +1071,9 @@ export const profiles: Record<Locale, ProfileContent> = {
       {
         organization: "Il MuMa",
         role: "Responsabile di sala",
-        period: "Circa 2024–presente",
+        period: "Circa 2024–2026",
         summary:
-          "Gestione di ordini ai fornitori, prenotazioni, telefono, cassa, inventario biancheria, coordinamento del team, esperienza ospite e cantina da oltre 80 etichette.",
+          "Ho gestito ordini ai fornitori, prenotazioni, telefono, cassa, inventario biancheria, coordinamento del team, esperienza ospite e una cantina da oltre 80 etichette.",
         details: ["Responsabilità", "Lucidità sotto pressione", "Comunicazione affidabile"],
       },
       {
@@ -1051,6 +1125,7 @@ export const profiles: Record<Locale, ProfileContent> = {
       },
     ],
     languages: [
+      { name: "Italiano", level: "Madrelingua" },
       { name: "Inglese", level: "C1" },
       { name: "Francese", level: "In apprendimento" },
     ],
